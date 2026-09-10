@@ -2037,7 +2037,9 @@ export default function KausebolModel() {
   .chap{max-width:66ch;margin:0 0 26px}
   .chap-kicker{font-family:'Archivo Narrow',sans-serif;font-size:11.5px;letter-spacing:.14em;
     text-transform:uppercase;color:var(--skog);font-weight:600;margin:0 0 6px}
-  .chap-title{font-size:clamp(22px,3.6vw,30px);line-height:1.15;margin:0 0 12px;letter-spacing:-.01em}
+  /* .kw prefix: without it the .kw h2 margin reset wins on specificity */
+  .kw .chap-title{font-size:clamp(22px,3.6vw,30px);line-height:1.15;margin:0 0 14px;
+    letter-spacing:-.01em}
   .chap-lede{font-family:Newsreader,Georgia,serif;font-size:18.5px;line-height:1.55;
     margin:0 0 0.7em;color:var(--ink2)}
   .chap-lede:first-of-type{color:var(--ink)}
@@ -2093,7 +2095,7 @@ export default function KausebolModel() {
   .planfig{margin:0;background:#fff;border:1px solid var(--line);padding:10px}
   .planfig img{width:100%;display:block}
   .planprose{font-size:16.5px}
-  .sec > h2{font-size:20px;margin-bottom:14px}
+  .sec > h2{font-size:20px;margin-bottom:18px}
   .cols{display:grid;grid-template-columns:1.55fr 1fr;gap:38px;align-items:start}
 
   /* dials */
