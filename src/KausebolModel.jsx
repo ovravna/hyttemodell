@@ -33,8 +33,7 @@ const IMG = {
 /* Salgsoppgaven ligger i public/, så den serves fra Pages-siden selv. */
 const PROSPECT = BASE + "salgsoppgave-kausebol-19.pdf";
 
-const FINN_URL =
-  "https://www.finn.no/realestate/leisuresale/ad.html?finnkode=410923295";
+const FINN_URL = "https://www.finn.no/476029048";
 
 /* ---------------------------- copy -------------------------------- */
 
