@@ -33,6 +33,9 @@ const IMG = {
 /* Salgsoppgaven ligger i public/, så den serves fra Pages-siden selv. */
 const PROSPECT = BASE + "salgsoppgave-kausebol-19.pdf";
 
+const FINN_URL =
+  "https://www.finn.no/realestate/leisuresale/ad.html?finnkode=410923295";
+
 /* ---------------------------- copy -------------------------------- */
 
 const T = {
@@ -209,6 +212,8 @@ const T = {
     blockersTitle: "Hindringer og oppgaver",
     glossTitle: "Begreper du må kjenne",
     mapLink: "Se stedet i kart",
+    finnLink: "Annonsen på FINN",
+    finnMeta: "Prisantydning 500 000 kr",
     farmLink: "Gårdskart for grunneiendommen",
     farmMeta: "208,1 dekar · 180 dekar skog · 0 dekar jordbruk",
     prospectLink: "Last ned salgsoppgaven",
@@ -417,6 +422,8 @@ const T = {
     blockersTitle: "Blockers and open tasks",
     glossTitle: "Concepts you need to know",
     mapLink: "See the location on a map",
+    finnLink: "The listing on FINN",
+    finnMeta: "Asking price NOK 500,000",
     farmLink: "Cadastral farm map of the freeholder\u2019s estate",
     farmMeta: "208.1 units · 180 forest · 0 agricultural",
     prospectLink: "Download the sales prospectus",
@@ -630,6 +637,8 @@ const T = {
     blockersTitle: "Ostacoli e attività aperte",
     glossTitle: "Concetti da conoscere",
     mapLink: "Vedi la posizione sulla mappa",
+    finnLink: "L’annuncio su FINN",
+    finnMeta: "Prezzo richiesto 500 000 NOK",
     farmLink: "Mappa catastale del fondo del concedente",
     farmMeta: "208,1 unità · 180 di bosco · 0 agricolo",
     prospectLink: "Scarica il fascicolo di vendita",
@@ -2645,6 +2654,16 @@ export default function KausebolModel() {
               {t.mapLink}
             </a>
             <span>59.6612° N, 11.0686° E</span>
+          </div>
+          <div className="maprow">
+            <a
+              href={FINN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.finnLink}
+            </a>
+            <span>{t.finnMeta}</span>
           </div>
           <div className="maprow">
             <a
