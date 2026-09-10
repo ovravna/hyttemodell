@@ -2171,6 +2171,8 @@ export default function KausebolModel() {
   .lhead{display:grid;grid-template-columns:26px minmax(0,1fr) 300px 24px;gap:12px;
     align-items:center;padding:12px 0;cursor:pointer}
   .kw input[type=checkbox]{width:15px;height:15px;accent-color:var(--skog);cursor:pointer}
+  /* inline like the span it replaces, so nothing shifts for a mouse */
+  .lcheck{cursor:pointer}
   .lname{font-size:14.5px;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .tag{font-family:'Archivo Narrow',sans-serif;font-size:11px;padding:1px 6px;border:1px solid}
   .tag.tg3{color:var(--red);border-color:var(--red);background:var(--red-l)}
@@ -2404,6 +2406,17 @@ export default function KausebolModel() {
   @media (pointer:coarse){
     .kw input[type=range]{height:44px;margin:0 0 -9px;
       position:relative;z-index:1;touch-action:none}
+
+    /* The ledger checkbox has no text of its own to hit: the name beside it
+       opens the row instead, so the 15px box was the entire tap target. The
+       label around it stretches over the row's vertical padding and into the
+       gutter, which costs no layout, and carries a 44px floor. */
+    .lcheck{display:flex;align-items:center;justify-content:center;
+      align-self:stretch;min-height:44px;
+      margin:-12px -9px -12px 0;padding-right:9px}
+
+    /* Wide but thin; give it a fingertip's worth of height either side. */
+    .ask-opt{padding:9px 0;margin:-9px 0}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -2432,11 +2445,11 @@ export default function KausebolModel() {
             }
           }}
         >
-          <span onClick={(e) => e.stopPropagation()}>
+          <label className="lcheck" onClick={(e) => e.stopPropagation()}>
             {showCheck ? (
               <input type="checkbox" checked={checked} onChange={onToggle} />
             ) : null}
-          </span>
+          </label>
           <span className="lname">
             {m.name[lang]}
             {m.tag ? <i className={"tag " + m.tag}>{t.tgLabel[m.tag]}</i> : null}
