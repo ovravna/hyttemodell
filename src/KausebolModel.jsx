@@ -35,8 +35,10 @@ const IMG = {
 const T = {
   no: {
     lang: "Norsk",
-    navOverview: "Oversikt",
-    navWorks: "Tiltak",
+    navOverview: "1 Kjøpet",
+    navWorks: "2 Utbedringer",
+    navRun: "3 Løpende",
+    navVerdict: "4 Verdt det?",
     navPlan: "Plantegning",
     navBlockers: "Hindringer",
     navConcepts: "Begreper",
@@ -49,6 +51,37 @@ const T = {
     ],
     fold: "Vis mindre",
     unfold: "Vis mer",
+    story: {
+      ch1kicker: "Kapittel 1",
+      ch1title: "Vi kjøper en hytte fra 1969",
+      ch1body: [
+        "500 000 kroner. Det er billigere enn en brukt bil, og det er en hytte. Med tinglysing og gebyrer er vi oppe i 513 850, og da har vi ikke rørt en spiker.",
+        "Men kjøpesummen er den enkle delen. Det er resten av regnestykket vi må bli enige om.",
+      ],
+      ch1more: "Hvorfor prisen er så lav",
+      ch2kicker: "Kapittel 2",
+      ch2title: "Noe må gjøres med taket",
+      ch2body: [
+        "Fire avvik har tilstandsgrad 3, som er den verste karakteren. Taket lekker allerede. Resten kan vente, men det venter ikke gratis.",
+        "Hak av et tiltak og følg med på tallene øverst. Noen tiltak henter inn mer enn de koster. Andre gjør ikke det, og vi gjør dem uansett fordi vi vil ha det finere.",
+      ],
+      ch3kicker: "Kapittel 3",
+      ch3title: "Og så tikker det penger ut hvert år",
+      ch3body: [
+        "Festeavgift, forsikring, ved, poser til forbrenningstoalettet. Hytta har energikarakter G, altså den dårligste som finnes, så det meste går til å varme opp skogen rundt.",
+        "Dette er den posten folk glemmer når de regner på hytte.",
+      ],
+      ch3more: "Forutsetningene bak tallene",
+      ch3ask: "Skal vi regne med det hytta koster å ha?",
+      ch3askYes: "Ja, ta med løpende kostnader",
+      ch4kicker: "Kapittel 4",
+      ch4title: "Men så er det det andre regnestykket",
+      ch4body: [
+        "Bålpanne på verandaen en lørdag i september. Badstu, hvis vi bygger den, og det bør vi. Førti minutter fra Oslo og to kilometer til vannet. Dette er hele poenget.",
+        "Regnestykket over går sjelden opp, for det finnes et tak for hva folk betaler her uansett hvor fint vi pusser opp. Men ingen kjøper hytte for avkastningen. Tallene sier hva moroa koster. Om den er verdt pengene, må vi bli enige om selv.",
+      ],
+      ch4more: "Hvordan verdianslagene er satt",
+    },
     pageTitle: "Skal vi kjøpe hytte?",
     addr: "Kausebøl 19, 1821 Spydeberg",
     sub: "gnr. 418 · bnr. 5 · fnr. 10 · Indre Østfold (3118)",
@@ -61,6 +94,7 @@ const T = {
       ["Grunneiendom", "208,1 dekar, 180 dekar produktiv skog"],
       ["Toalett", "Forbrenningstoalett, ingen godkjent avløp"],
       ["Prisantydning", "500 000 kr"],
+      ["Omkostninger", "13 850 kr, tinglysing og gebyrer"],
     ],
     pitchTitle: "Hva dette faktisk er",
     pitch: [
@@ -207,8 +241,10 @@ const T = {
   },
   en: {
     lang: "English",
-    navOverview: "Overview",
-    navWorks: "Works",
+    navOverview: "1 The purchase",
+    navWorks: "2 Repairs",
+    navRun: "3 Running costs",
+    navVerdict: "4 Worth it?",
     navPlan: "Floor plan",
     navBlockers: "Blockers",
     navConcepts: "Concepts",
@@ -221,6 +257,37 @@ const T = {
     ],
     fold: "Show less",
     unfold: "Show more",
+    story: {
+      ch1kicker: "Chapter 1",
+      ch1title: "We buy a cabin from 1969",
+      ch1body: [
+        "NOK 500,000. That is less than a used car, and it is a cabin. With registration and fees we are at 513,850, and we have not touched a nail.",
+        "But the purchase is the easy part. It is the rest of the sum we need to agree on.",
+      ],
+      ch1more: "Why the price is this low",
+      ch2kicker: "Chapter 2",
+      ch2title: "Something has to be done about the roof",
+      ch2body: [
+        "Four defects are graded condition 3, which is the worst grade there is. The roof already leaks. The rest can wait, but waiting is not free.",
+        "Tick a work item and watch the figures at the top. Some earn back more than they cost. Others do not, and we do them anyway because we want the place to be nicer.",
+      ],
+      ch3kicker: "Chapter 3",
+      ch3title: "And money leaks out every year",
+      ch3body: [
+        "Ground rent, insurance, firewood, bags for the incinerating toilet. The cabin is energy rated G, the worst there is, so most of it goes into heating the forest around it.",
+        "This is the line people forget when they do the maths on a cabin.",
+      ],
+      ch3more: "The assumptions behind the figures",
+      ch3ask: "Shall we count what the cabin costs to keep?",
+      ch3askYes: "Yes, include running costs",
+      ch4kicker: "Chapter 4",
+      ch4title: "But then there is the other sum",
+      ch4body: [
+        "A fire pit on the deck on a Saturday in September. A sauna, if we build one, and we should. Forty minutes from Oslo and two kilometres to the water. This is the whole point.",
+        "The sum above rarely works out, because there is a ceiling on what people pay here however nicely we do it up. But nobody buys a cabin for the return. The figures say what the fun costs. Whether it is worth the money is ours to settle.",
+      ],
+      ch4more: "How the value estimates are set",
+    },
     pageTitle: "Should we buy the cabin?",
     addr: "Kausebøl 19, 1821 Spydeberg, Norway",
     sub: "Cadastral 418/5/10 · Indre Østfold municipality (3118)",
@@ -233,6 +300,7 @@ const T = {
       ["Freeholder's estate", "208.1 ha-units, 180 productive forest"],
       ["Toilet", "Incinerating, no approved wastewater system"],
       ["Asking price", "NOK 500,000"],
+      ["Transaction costs", "NOK 13,850, registration and fees"],
     ],
     pitchTitle: "What this actually is",
     pitch: [
@@ -384,8 +452,10 @@ const T = {
   },
   it: {
     lang: "Italiano",
-    navOverview: "Panoramica",
-    navWorks: "Interventi",
+    navOverview: "1 L'acquisto",
+    navWorks: "2 Interventi",
+    navRun: "3 Costi ricorrenti",
+    navVerdict: "4 Ne vale la pena?",
     navPlan: "Planimetria",
     navBlockers: "Ostacoli",
     navConcepts: "Concetti",
@@ -398,6 +468,37 @@ const T = {
     ],
     fold: "Mostra meno",
     unfold: "Mostra più",
+    story: {
+      ch1kicker: "Capitolo 1",
+      ch1title: "Compriamo una baita del 1969",
+      ch1body: [
+        "500.000 NOK. Costa meno di un'auto usata, ed è una baita. Con registrazione e diritti siamo a 513.850, e non abbiamo ancora toccato un chiodo.",
+        "Ma l'acquisto è la parte facile. È sul resto del conto che dobbiamo metterci d'accordo.",
+      ],
+      ch1more: "Perché il prezzo è così basso",
+      ch2kicker: "Capitolo 2",
+      ch2title: "Il tetto va rifatto",
+      ch2body: [
+        "Quattro difetti hanno grado 3, il voto peggiore che esista. Il tetto perde già adesso. Il resto può aspettare, ma aspettare non è gratis.",
+        "Seleziona un intervento e guarda i numeri in alto. Alcuni recuperano più di quanto costino. Altri no, e li facciamo lo stesso perché vogliamo stare meglio.",
+      ],
+      ch3kicker: "Capitolo 3",
+      ch3title: "E ogni anno escono soldi",
+      ch3body: [
+        "Canone, assicurazione, legna, sacchetti per il WC a incenerimento. La baita ha classe energetica G, la peggiore che c'è, quindi gran parte se ne va a scaldare il bosco intorno.",
+        "È la voce che tutti dimenticano quando fanno i conti su una baita.",
+      ],
+      ch3more: "Le ipotesi dietro i numeri",
+      ch3ask: "Contiamo quanto costa tenerla?",
+      ch3askYes: "Sì, includi i costi ricorrenti",
+      ch4kicker: "Capitolo 4",
+      ch4title: "Ma poi c'è l'altro conto",
+      ch4body: [
+        "Un braciere sulla veranda un sabato di settembre. Una sauna, se la costruiamo, e dovremmo. Quaranta minuti da Oslo e due chilometri dall'acqua. Il punto è tutto qui.",
+        "Il conto qui sopra raramente torna, perché c'è un limite a quanto la gente paga da queste parti per quanto bene la sistemiamo. Ma nessuno compra una baita per il rendimento. I numeri dicono quanto costa il divertimento. Se valga i soldi, dobbiamo deciderlo noi.",
+      ],
+      ch4more: "Come sono stati fissati i valori",
+    },
     pageTitle: "Compriamo la baita?",
     addr: "Kausebøl 19, 1821 Spydeberg, Norvegia",
     sub: "Catasto 418/5/10 · Comune di Indre Østfold (3118)",
@@ -410,6 +511,7 @@ const T = {
       ["Fondo del concedente", "208,1 ettari, 180 di bosco produttivo"],
       ["Servizi igienici", "WC a incenerimento, nessuno scarico autorizzato"],
       ["Prezzo richiesto", "500.000 NOK"],
+      ["Spese accessorie", "13.850 NOK, registrazione e diritti"],
     ],
     pitchTitle: "Di cosa si tratta davvero",
     pitch: [
@@ -1258,9 +1360,9 @@ function Money({ v, cls, sign }) {
   );
 }
 
-function Slider({ label, note, value, min, max, step, onChange, display }) {
+function Slider({ label, note, value, min, max, step, onChange, display, auto }) {
   return (
-    <label className="dial">
+    <label className={"dial" + (auto ? " auto" : "")}>
       <span className="dial-head">
         <span className="dial-label">{label}</span>
         <span className="dial-val">{display}</span>
@@ -1272,6 +1374,10 @@ function Slider({ label, note, value, min, max, step, onChange, display }) {
         step={step}
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
+        style={{
+          "--fill":
+            ((value - min) / (max - min || 1)) * 100 + "%",
+        }}
       />
       {note ? <span className="dial-note">{note}</span> : null}
     </label>
@@ -1315,6 +1421,11 @@ export default function KausebolModel() {
   const [navH, setNavH] = useState(38);
   const numsRef = useRef(null);
   const graphRef = useRef(null);
+  /* The graph joins the pinned bar as soon as the bars themselves slide
+     under the nav, not when the whole band with its legend and footnote has
+     gone by. Handing over at that moment means the reader always has one
+     copy of the graph on screen and never two. */
+  const graphBarsRef = useRef(null);
   const [showNums, setShowNums] = useState(false);
   const [showGraph, setShowGraph] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -1326,7 +1437,7 @@ export default function KausebolModel() {
   const anchorRef = useRef(null);
 
   const switchLang = (next) => {
-    const marks = ["sec-ov", "sec-works", "sec-plan", "sec-blockers", "sec-concepts"]
+    const marks = ["sec-ov", "sec-works", "sec-run", "sec-verdict", "sec-plan", "sec-blockers", "sec-concepts"]
       .map((id) => (typeof document !== "undefined" ? document.getElementById(id) : null))
       .filter(Boolean);
     const above = marks.filter((el) => el.getBoundingClientRect().top <= 140);
@@ -1394,10 +1505,23 @@ export default function KausebolModel() {
         if (h > 0) setNavH((prev) => (Math.abs(prev - h) > 0.5 ? h : prev));
       }
       setShowNums((wasOn) => past(numsRef.current, wasOn));
-      setShowGraph((wasOn) => past(graphRef.current, wasOn));
+      setShowGraph((wasOn) => {
+        const el = graphBarsRef.current;
+        if (!el) return past(graphRef.current, wasOn);
+        const r = el.getBoundingClientRect();
+        if (r.height <= 0) return wasOn;
+        /* Measure the pinned bar now rather than closing over navH, which
+           this effect never re-reads. The pinned graph comes in as soon as
+           the bars START going under the bar, so the reader keeps a copy in
+           view the whole way down. Same 12px hysteresis as past(). */
+        const bar = navRowRef.current
+          ? navRowRef.current.getBoundingClientRect().height
+          : 38;
+        return wasOn ? r.top < bar + 12 : r.top < bar - 12;
+      });
 
       /* current section = the last one whose top has passed the bar */
-      const ids = ["ov", "works", "plan", "blockers", "concepts"];
+      const ids = ["ov", "works", "run", "verdict", "plan", "blockers", "concepts"];
       let active = ids[0];
       for (const id of ids) {
         const el = document.getElementById("sec-" + id);
@@ -1519,11 +1643,45 @@ export default function KausebolModel() {
   const axisMax = Math.max(totalIn, ceiling, value) * 1.02;
   const pc = (v) => Math.max(0, Math.min(100, (v / axisMax) * 100));
 
+  /* Chapter heading: kicker + title, opens each step of the story. */
+  const Chapter = ({ kicker, title, body }) => (
+    <div className="chap">
+      <div className="chap-kicker">{kicker}</div>
+      <h2 className="chap-title">{title}</h2>
+      {body.map((p, i) => (
+        <p className="chap-lede" key={i}>
+          {p}
+        </p>
+      ))}
+    </div>
+  );
+
+  /* Detail kept on the page but out of the way: the long-form text that
+     used to sit in the flow now lives behind one of these. */
+  const Fold = ({ label, children }) => {
+    const [open, setOpen] = useState(false);
+    return (
+      <div className={"fold" + (open ? " on" : "")}>
+        <button
+          className="fold-head"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+        >
+          <span>{label}</span>
+          {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        </button>
+        {open ? <div className="fold-body">{children}</div> : null}
+      </div>
+    );
+  };
+
   const SecNav = () => (
     <nav className="nav2">
       {[
         ["ov", t.navOverview],
         ["works", t.navWorks],
+        ["run", t.navRun],
+        ["verdict", t.navVerdict],
         ["plan", t.navPlan],
         ["blockers", t.navBlockers],
         ["concepts", t.navConcepts],
@@ -1544,7 +1702,7 @@ export default function KausebolModel() {
   );
 
   const Bars = ({ dark }) => (
-    <div className={"bx" + (dark ? " dark" : "")}>
+    <div className={"bx" + (dark ? " dark" : "")} ref={dark ? undefined : graphBarsRef}>
       <div className="bx-row">
         <span className="bx-lab">{dark ? t.balCostShort : t.balCost}</span>
         <span className="bx-track">
@@ -1875,6 +2033,39 @@ export default function KausebolModel() {
     padding:0 0 1px;cursor:pointer;margin:-9px 0 15px}
 
   /* sections */
+  /* ---- story chapters ---- */
+  .chap{max-width:66ch;margin:0 0 26px}
+  .chap-kicker{font-family:'Archivo Narrow',sans-serif;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--skog);font-weight:600;margin:0 0 6px}
+  .chap-title{font-size:clamp(22px,3.6vw,30px);line-height:1.15;margin:0 0 12px;letter-spacing:-.01em}
+  .chap-lede{font-family:Newsreader,Georgia,serif;font-size:18.5px;line-height:1.55;
+    margin:0 0 0.7em;color:var(--ink2)}
+  .chap-lede:first-of-type{color:var(--ink)}
+  /* ---- the question that gates the running-cost box ---- */
+  /* The question and the cost box are one panel, not two stacked cards:
+     the ask is its header, and the figures continue below the same border. */
+  .askwrap{margin:24px 0 0;border:1px solid var(--line);background:var(--card)}
+  .ask{padding:17px 18px}
+  .askwrap.on .ask{border-bottom:1px solid var(--line)}
+  .ask-q{margin:0 0 11px;font-family:Newsreader,Georgia,serif;font-size:18.5px;
+    line-height:1.35;color:var(--ink)}
+  .ask-opt{display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+    font-family:'Archivo Narrow',sans-serif;font-size:14.5px;font-weight:600;color:var(--ink)}
+  .ask-opt input{width:17px;height:17px;accent-color:var(--skog);cursor:pointer;flex-shrink:0}
+  .ask-note{margin:9px 0 0;font-family:'Archivo Narrow',sans-serif;font-size:12px;
+    line-height:1.5;color:var(--ink3);max-width:62ch}
+  /* ---- folded detail ---- */
+  .fold{border-top:1px solid var(--line);margin:18px 0 0;max-width:66ch}
+  .fold-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    width:100%;background:none;border:0;padding:12px 0;cursor:pointer;color:var(--ink2);
+    font:inherit;font-family:'Archivo Narrow',sans-serif;font-size:13.5px;font-weight:600;
+    letter-spacing:.01em;text-align:left}
+  .fold-head:hover{color:var(--ink)}
+  .fold-head svg{flex-shrink:0;opacity:.6}
+  .fold.on .fold-head{color:var(--ink)}
+  .fold-body{padding:0 0 16px}
+  .fold-body .prose{font-size:16.5px}
+  .fold-body .prose p:last-child{margin-bottom:0}
   .sec{padding:44px 0 0;scroll-margin-top:96px}
   .band{scroll-margin-top:96px;padding:30px 0 32px;margin:44px 0 0}
   .hero .band{margin:0}
@@ -1914,8 +2105,46 @@ export default function KausebolModel() {
   .dial-val{font-family:'Archivo Narrow',sans-serif;font-size:13px;color:var(--ink2);
     font-variant-numeric:tabular-nums}
   .dial-note{display:block;font-family:'Archivo Narrow',sans-serif;font-size:11.5px;color:var(--ink3);margin-top:2px}
-  .kw input[type=range]{width:100%;margin:5px 0 0;accent-color:var(--skog);height:20px;
-    touch-action:pan-y}
+  /* Sliders are drawn by hand rather than left to accent-color: the native
+     control is far heavier than the rest of the page. A hairline track, a
+     filled portion in skog, and a small ringed thumb. The filled part is a
+     gradient sized from --fill, which Slider sets per dial. */
+  .kw input[type=range]{-webkit-appearance:none;appearance:none;
+    width:100%;margin:9px 0 0;height:14px;background:none;cursor:pointer;
+    touch-action:pan-y;display:block}
+  .kw input[type=range]:focus{outline:none}
+
+  /* --- track --- */
+  .kw input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;
+    background:linear-gradient(to right,var(--skog) 0 var(--fill,50%),var(--line) var(--fill,50%) 100%)}
+  .kw input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:var(--line)}
+  .kw input[type=range]::-moz-range-progress{height:3px;border-radius:2px;background:var(--skog)}
+
+  /* --- thumb --- */
+  .kw input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:13px;height:13px;margin-top:-5px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--skog);
+    transition:transform .12s ease,border-color .12s ease}
+  .kw input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--skog);
+    transition:transform .12s ease,border-color .12s ease}
+  .kw input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.18)}
+  .kw input[type=range]:hover::-moz-range-thumb{transform:scale(1.18)}
+  .kw input[type=range]:active::-webkit-slider-thumb{transform:scale(1.18);background:var(--skog)}
+  .kw input[type=range]:active::-moz-range-thumb{transform:scale(1.18);background:var(--skog)}
+  .kw input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px var(--skog-l)}
+  .kw input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 3px var(--skog-l)}
+
+  /* a dial still following the works reads grey: it is a derived value,
+     not something you have set yourself */
+  .dial.auto input[type=range]::-webkit-slider-runnable-track{
+    background:linear-gradient(to right,var(--ink3) 0 var(--fill,50%),var(--line) var(--fill,50%) 100%)}
+  .dial.auto input[type=range]::-moz-range-progress{background:var(--ink3)}
+  .dial.auto input[type=range]::-webkit-slider-thumb{border-color:var(--ink3)}
+  .dial.auto input[type=range]::-moz-range-thumb{border-color:var(--ink3)}
+  .dial.auto input[type=range]:active::-webkit-slider-thumb{background:var(--ink3)}
+  .dial.auto input[type=range]:active::-moz-range-thumb{background:var(--ink3)}
+  .dial.auto .dial-val{color:var(--ink3)}
 
   /* ledger */
   .ledger{border-top:2px solid var(--ink)}
@@ -1969,14 +2198,34 @@ export default function KausebolModel() {
   .bhead{font-family:'Archivo Narrow',sans-serif;font-size:11.5px;color:var(--red);
     margin:2px 0 2px;font-weight:600}
 
-  .seg{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--ink);margin:0 0 4px}
-  .seg button{font:inherit;font-size:13px;padding:7px 12px;background:none;border:0;
-    border-right:1px solid var(--ink);cursor:pointer;color:var(--ink);flex:1;white-space:nowrap}
-  .seg button:last-child{border-right:0}
-  .seg button[aria-pressed=true]{background:var(--skog);color:#fff}
+  /* A choose-one list rather than a segmented bar. The old version put the
+     options in a wrapping flex row, which broke as soon as a label was long
+     or the language changed: the row split 2+1, the cells came out uneven,
+     and the button ending the first row kept a dangling divider. Rows stack
+     instead, so any label length works at any width in any language. */
+  .seg{display:flex;flex-direction:column;border:1px solid var(--line);
+    border-radius:3px;overflow:hidden;margin:0 0 4px;background:var(--card)}
+  .seg button{font:inherit;font-size:13.5px;text-align:left;padding:10px 13px;
+    background:none;border:0;border-top:1px solid var(--line);cursor:pointer;
+    color:var(--ink2);display:flex;align-items:center;gap:10px;width:100%;
+    transition:background .12s ease,color .12s ease}
+  .seg button:first-child{border-top:0}
+  .seg button:hover{background:var(--paper);color:var(--ink)}
+  /* the mark is drawn with a pseudo-element so the label never shifts */
+  .seg button::before{content:"";flex-shrink:0;width:13px;height:13px;
+    border-radius:50%;border:1.5px solid var(--line);background:var(--paper);
+    transition:border-color .12s ease,box-shadow .12s ease}
+  .seg button[aria-pressed=true]{background:var(--skog-l);color:var(--ink);font-weight:600}
+  .seg button[aria-pressed=true]::before{border-color:var(--skog);
+    box-shadow:inset 0 0 0 3px var(--skog)}
+  .seg button:focus-visible{outline:2px solid var(--skog);outline-offset:-2px}
   .seglabel{font-family:'Archivo Narrow',sans-serif;font-size:11.5px;color:var(--ink3);margin:14px 0 5px}
+  /* handed over to the pinned bar: invisible and inert, box preserved */
+  .handover{transition:opacity .22s ease-out}
+  .handover.gone{opacity:0;pointer-events:none}
 
-  .runbox{background:var(--card);border:1px solid var(--line);padding:15px 16px}
+
+  .runbox{background:none;border:0;padding:16px 18px 15px}
   .runrow{display:flex;justify-content:space-between;font-family:'Archivo Narrow',sans-serif;
     font-size:13.5px;padding:5px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
   .runrow.tot{border-bottom:0;border-top:1.5px solid var(--ink);font-weight:600;
@@ -1988,7 +2237,7 @@ export default function KausebolModel() {
   .rungrp{display:flex;justify-content:space-between;gap:12px;
     font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--ink3);
     margin:12px 0 3px;padding-bottom:2px}
-  .rundials{border-top:1px solid var(--line);margin-top:11px;padding-top:14px}
+  .rundials{margin-top:0}
   .rundials .dial:last-of-type{margin-bottom:2px}
   .rungrp:first-child{margin-top:0}
   .runtoggle{display:flex;gap:8px;align-items:flex-start;margin:9px 0 2px;cursor:pointer}
@@ -2075,13 +2324,18 @@ export default function KausebolModel() {
     .vcell small{font-size:10.5px}
     .prose{font-size:16.5px}
     .kw h1{font-size:clamp(26px,8vw,34px)}
-    .kw input[type=range]{height:28px}
+    /* bigger touch target; the thumb keeps its size and stays centred */
+    .kw input[type=range]{height:26px}
+    .kw input[type=range]::-webkit-slider-thumb{width:15px;height:15px;margin-top:-6px}
+    .kw input[type=range]::-moz-range-thumb{width:15px;height:15px}
     .dial{margin-bottom:20px}
     .fnum{font-size:23px}
     .planfig{padding:6px}
     .runrow{font-size:13px}
     .bx-num{font-size:13px}
     .cols{grid-template-columns:1fr;gap:26px}
+    .chap-lede{font-size:17px}
+    .chap{margin-bottom:22px}
     .plancols{grid-template-columns:1fr;gap:22px}
 
 
@@ -2414,17 +2668,20 @@ export default function KausebolModel() {
 
       <div className="wrap">
         <section className="sec" id="sec-ov">
-          <div className="cols">
-            <div>
-              <h2>{t.pitchTitle}</h2>
-              <div className="prose">
-                {t.pitch.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
+          <Chapter
+            kicker={t.story.ch1kicker}
+            title={t.story.ch1title}
+            body={t.story.ch1body}
+          />
+          <Fold label={t.story.ch1more}>
+            <div className="prose">
+              {t.pitch.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
+          </Fold>
+          <div className="cols" style={{ marginTop: 30 }}>
             <div>
-              <h2>{t.dials}</h2>
               <div className="dials">
                 <Slider
                   label={t.price}
@@ -2489,19 +2746,195 @@ export default function KausebolModel() {
                   display={(growth > 0 ? "+" : "") + growth.toFixed(2) + " %"}
                 />
               </div>
+            </div>
+          </div>
 
-              <div className="runbox" style={{ marginTop: 16 }}>
-                <label className="runtoggle" style={{ margin: "0 0 4px" }}>
-                  <input
-                    type="checkbox"
-                    checked={inclRun}
-                    onChange={() => setInclRun(!inclRun)}
-                  />
+        </section>
+      </div>
+
+      {/* Once the pinned bar has taken the graph over, the copy in the page
+          would sit right under it showing the same thing. Fade it out but
+          keep its box: the element is the scroll anchor the trigger measures,
+          so collapsing it would move the page under the reader. */}
+      <div className="band" ref={graphRef}>
+        <div
+          className={"wrap handover" + (showGraph ? " gone" : "")}
+          aria-hidden={showGraph}
+        >
+          <div className="gauge onink">
+            <div className="gauge-title">{t.balTitle}</div>
+            <Bars />
+            <p className="gauge-why">
+              {t.ceilWhy[sewer]}
+              {redeem ? t.ceilWhyRedeem : ""}{" "}
+              <b>
+                {value >= ceiling
+                  ? t.gaugeFull
+                  : t.gaugeHead(fmt((ceiling - value) * 1000))}
+              </b>
+            </p>
+            <p className="gauge-foot">{t.ceilingNote}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="wrap">
+        <section className="sec" id="sec-works">
+          <Chapter
+            kicker={t.story.ch2kicker}
+            title={t.story.ch2title}
+            body={t.story.ch2body}
+          />
+          <div className="legend">
+            <span className="lgkey">
+              <i className="sw c" />
+              {t.mCost}
+            </span>
+            <span className="lgkey">
+              <i className="sw v" />
+              {t.mValue}
+            </span>
+            <span className="lgnote">{t.mNetNote}</span>
+          </div>
+          <div className="ledger">
+            {MEASURES.map((m) => (
+              <Row
+                key={m.id}
+                m={m}
+                keyId={m.id}
+                showCheck
+                checked={!!sel[m.id]}
+                onToggle={() => setSel({ ...sel, [m.id]: !sel[m.id] })}
+              />
+            ))}
+          </div>
+
+          <div className="seglabel">
+            {lang === "no" ? "Avløp" : lang === "en" ? "Wastewater" : "Scarichi"}{" ("}
+            {t.exclusive.toLowerCase()}
+            {")"}
+          </div>
+          <div className="seg" role="radiogroup">
+            {["none", "grey", "full"].map((k) => (
+              <button
+                key={k}
+                role="radio"
+                aria-checked={sewer === k}
+                aria-pressed={sewer === k}
+                onClick={() => setSewer(k)}
+              >
+                {SEWER[k].name[lang]}
+              </button>
+            ))}
+          </div>
+          {sewer === "full" ? (
+            <div className="runbox" style={{ margin: "12px 0 4px" }}>
+              <Slider
+                label={t.cabins}
+                note={t.cabinsNote}
+                value={cabins}
+                min={1}
+                max={18}
+                step={1}
+                onChange={setCabins}
+                display={cabins === 1 ? t.cabinsAlone : cabins}
+              />
+              <div style={{ marginTop: 13 }}>
+                <div className="runrow">
+                  <span>{t.splitFixed}</span>
+                  <span>{fmt(lerp(FULL_FIXED[0], FULL_FIXED[1], level) * 1000)}</span>
+                </div>
+                <div className="runrow">
+                  <span>{t.splitTrench}</span>
                   <span>
-                    {t.runInclude}
-                    <em>{t.runIncludeNote}</em>
+                    {fmt(
+                      (lerp(FULL_TRENCH[0], FULL_TRENCH[1], level) / cabins) * 1000
+                    )}
                   </span>
-                </label>
+                </div>
+                <div className="runrow tot">
+                  <span>{t.splitPer}</span>
+                  <span>
+                    {fmt(
+                      (lerp(FULL_FIXED[0], FULL_FIXED[1], level) +
+                        lerp(FULL_TRENCH[0], FULL_TRENCH[1], level) / cabins) *
+                        1000
+                    )}
+                  </span>
+                </div>
+              </div>
+              <p className="gauge-foot">{t.splitNote}</p>
+            </div>
+          ) : null}
+          <div className="ledger" style={{ borderTop: "1px solid var(--line)" }}>
+            <Row m={{ ...sewerObj, tag: "legal" }} keyId="sewer" checked={sewer !== "none"} showCheck={false} />
+          </div>
+
+          <div className="seglabel">
+            {lang === "no" ? "Badstu i annekset" : lang === "en" ? "Sauna in the annex" : "Sauna nell’annesso"}{" ("}
+            {t.exclusive.toLowerCase()}
+            {")"}
+          </div>
+          <div className="seg" role="radiogroup">
+            {["none", "el", "ved"].map((k) => (
+              <button
+                key={k}
+                role="radio"
+                aria-checked={sauna === k}
+                aria-pressed={sauna === k}
+                onClick={() => setSauna(k)}
+              >
+                {SAUNA[k].name[lang]}
+              </button>
+            ))}
+          </div>
+          {sauna !== "none" ? (
+            <div className="ledger" style={{ borderTop: "1px solid var(--line)" }}>
+              <Row
+                m={{ ...SAUNA[sauna], tag: "opt" }}
+                keyId="sauna"
+                checked
+                showCheck={false}
+              />
+            </div>
+          ) : null}
+
+          <div className="seglabel">
+            {lang === "no" ? "Tomta" : lang === "en" ? "The land" : "Il terreno"}
+          </div>
+          <div className="ledger" style={{ borderTop: "1px solid var(--line)" }}>
+            <Row
+              m={{ ...REDEEM, tag: "opt" }}
+              keyId="redeem"
+              showCheck
+              checked={redeem}
+              onToggle={() => setRedeem(!redeem)}
+            />
+          </div>
+        </section>
+
+        <section className="sec" id="sec-run">
+          <Chapter
+            kicker={t.story.ch3kicker}
+            title={t.story.ch3title}
+            body={t.story.ch3body}
+          />
+          <div className={"askwrap" + (inclRun ? " on" : "")}>
+            <div className="ask">
+              <p className="ask-q">{t.story.ch3ask}</p>
+              <label className="ask-opt">
+                <input
+                  type="checkbox"
+                  checked={inclRun}
+                  onChange={() => setInclRun(!inclRun)}
+                />
+                <span>{t.story.ch3askYes}</span>
+              </label>
+              <p className="ask-note">{t.runIncludeNote}</p>
+            </div>
+
+            {inclRun ? (
+              <div className="runbox">
                 <div className="rundials">
                 <Slider
                   label={t.usage}
@@ -2527,6 +2960,7 @@ export default function KausebolModel() {
                   max={22}
                   step={0.5}
                   onChange={setMaintManual}
+                  auto={maintManual === null}
                   display={
                     maintBucket +
                     " · " +
@@ -2631,150 +3065,32 @@ export default function KausebolModel() {
                     <Money v={runPv * 1000} />
                   </span>
                 </div>
-                <p className="gauge-foot">{t.runFoot}</p>
               </div>
-
-            </div>
+            ) : null}
           </div>
+          {inclRun ? (
+            <Fold label={t.story.ch3more}>
+              <div className="prose">
+                <p>{t.runFoot}</p>
+              </div>
+            </Fold>
+          ) : null}
         </section>
-      </div>
 
-      <div className="band" ref={graphRef}>
-        <div className="wrap">
-          <div className="gauge onink">
-            <div className="gauge-title">{t.balTitle}</div>
-            <Bars />
-            <p className="gauge-why">
-              {t.ceilWhy[sewer]}
-              {redeem ? t.ceilWhyRedeem : ""}{" "}
-              <b>
-                {value >= ceiling
-                  ? t.gaugeFull
-                  : t.gaugeHead(fmt((ceiling - value) * 1000))}
-              </b>
-            </p>
-            <p className="gauge-foot">{t.ceilingNote}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="wrap">
-        <section className="sec" id="sec-works">
-          <h2>{t.measures}</h2>
-          <div className="legend">
-            <span className="lgkey">
-              <i className="sw c" />
-              {t.mCost}
-            </span>
-            <span className="lgkey">
-              <i className="sw v" />
-              {t.mValue}
-            </span>
-            <span className="lgnote">{t.mNetNote}</span>
-          </div>
-          <div className="ledger">
-            {MEASURES.map((m) => (
-              <Row
-                key={m.id}
-                m={m}
-                keyId={m.id}
-                showCheck
-                checked={!!sel[m.id]}
-                onToggle={() => setSel({ ...sel, [m.id]: !sel[m.id] })}
-              />
-            ))}
-          </div>
-
-          <div className="seglabel">
-            {lang === "no" ? "Avløp" : lang === "en" ? "Wastewater" : "Scarichi"}{" ("}
-            {t.exclusive.toLowerCase()}
-            {")"}
-          </div>
-          <div className="seg">
-            {["none", "grey", "full"].map((k) => (
-              <button key={k} aria-pressed={sewer === k} onClick={() => setSewer(k)}>
-                {SEWER[k].name[lang]}
-              </button>
-            ))}
-          </div>
-          {sewer === "full" ? (
-            <div className="runbox" style={{ margin: "12px 0 4px" }}>
-              <Slider
-                label={t.cabins}
-                note={t.cabinsNote}
-                value={cabins}
-                min={1}
-                max={18}
-                step={1}
-                onChange={setCabins}
-                display={cabins === 1 ? t.cabinsAlone : cabins}
-              />
-              <div style={{ marginTop: 13 }}>
-                <div className="runrow">
-                  <span>{t.splitFixed}</span>
-                  <span>{fmt(lerp(FULL_FIXED[0], FULL_FIXED[1], level) * 1000)}</span>
-                </div>
-                <div className="runrow">
-                  <span>{t.splitTrench}</span>
-                  <span>
-                    {fmt(
-                      (lerp(FULL_TRENCH[0], FULL_TRENCH[1], level) / cabins) * 1000
-                    )}
-                  </span>
-                </div>
-                <div className="runrow tot">
-                  <span>{t.splitPer}</span>
-                  <span>
-                    {fmt(
-                      (lerp(FULL_FIXED[0], FULL_FIXED[1], level) +
-                        lerp(FULL_TRENCH[0], FULL_TRENCH[1], level) / cabins) *
-                        1000
-                    )}
-                  </span>
-                </div>
-              </div>
-              <p className="gauge-foot">{t.splitNote}</p>
+        <section className="sec" id="sec-verdict">
+          <Chapter
+            kicker={t.story.ch4kicker}
+            title={t.story.ch4title}
+            body={t.story.ch4body}
+          />
+          <Fold label={t.story.ch4more}>
+            <div className="prose">
+              <p>{t.ceilingNote}</p>
+              {t.notesBody.map((n, i) => (
+                <p key={i}>{n}</p>
+              ))}
             </div>
-          ) : null}
-          <div className="ledger" style={{ borderTop: "1px solid var(--line)" }}>
-            <Row m={{ ...sewerObj, tag: "legal" }} keyId="sewer" checked={sewer !== "none"} showCheck={false} />
-          </div>
-
-          <div className="seglabel">
-            {lang === "no" ? "Badstu i annekset" : lang === "en" ? "Sauna in the annex" : "Sauna nell’annesso"}{" ("}
-            {t.exclusive.toLowerCase()}
-            {")"}
-          </div>
-          <div className="seg">
-            {["none", "el", "ved"].map((k) => (
-              <button key={k} aria-pressed={sauna === k} onClick={() => setSauna(k)}>
-                {SAUNA[k].name[lang]}
-              </button>
-            ))}
-          </div>
-          {sauna !== "none" ? (
-            <div className="ledger" style={{ borderTop: "1px solid var(--line)" }}>
-              <Row
-                m={{ ...SAUNA[sauna], tag: "opt" }}
-                keyId="sauna"
-                checked
-                showCheck={false}
-              />
-            </div>
-          ) : null}
-
-          <div className="seglabel">
-            {lang === "no" ? "Tomta" : lang === "en" ? "The land" : "Il terreno"}
-          </div>
-          <div className="ledger" style={{ borderTop: "1px solid var(--line)" }}>
-            <Row
-              m={{ ...REDEEM, tag: "opt" }}
-              keyId="redeem"
-              showCheck
-              checked={redeem}
-              onToggle={() => setRedeem(!redeem)}
-            />
-          </div>
+          </Fold>
         </section>
 
         <section className="sec" id="sec-plan">
@@ -2844,11 +3160,6 @@ export default function KausebolModel() {
           </div>
         </section>
 
-        <div className="notes">
-          {t.notesBody.map((n, i) => (
-            <p key={i}>{n}</p>
-          ))}
-        </div>
       </div>
     </div>
   );
