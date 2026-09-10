@@ -30,6 +30,9 @@ const IMG = {
   plan: BASE + "img/plan.webp",
 };
 
+/* Salgsoppgaven ligger i public/, så den serves fra Pages-siden selv. */
+const PROSPECT = BASE + "salgsoppgave-kausebol-19.pdf";
+
 /* ---------------------------- copy -------------------------------- */
 
 const T = {
@@ -208,6 +211,8 @@ const T = {
     mapLink: "Se stedet i kart",
     farmLink: "Gårdskart for grunneiendommen",
     farmMeta: "208,1 dekar · 180 dekar skog · 0 dekar jordbruk",
+    prospectLink: "Last ned salgsoppgaven",
+    prospectMeta: "PDF · 9,5 MB",
     running: "Løpende kostnader",
     runningItems: [
       ["Festeavgift", 2135],
@@ -414,6 +419,8 @@ const T = {
     mapLink: "See the location on a map",
     farmLink: "Cadastral farm map of the freeholder\u2019s estate",
     farmMeta: "208.1 units · 180 forest · 0 agricultural",
+    prospectLink: "Download the sales prospectus",
+    prospectMeta: "PDF · 9.5 MB",
     running: "Recurring costs",
     runningItems: [
       ["Ground rent", 2135],
@@ -625,6 +632,8 @@ const T = {
     mapLink: "Vedi la posizione sulla mappa",
     farmLink: "Mappa catastale del fondo del concedente",
     farmMeta: "208,1 unità · 180 di bosco · 0 agricolo",
+    prospectLink: "Scarica il fascicolo di vendita",
+    prospectMeta: "PDF · 9,5 MB",
     running: "Costi ricorrenti",
     runningItems: [
       ["Canone di concessione", 2135],
@@ -2646,6 +2655,12 @@ export default function KausebolModel() {
               {t.farmLink}
             </a>
             <span>{t.farmMeta}</span>
+          </div>
+          <div className="maprow">
+            <a href={PROSPECT} download>
+              {t.prospectLink}
+            </a>
+            <span>{t.prospectMeta}</span>
           </div>
           <div style={{ height: 24 }} />
         </div>
