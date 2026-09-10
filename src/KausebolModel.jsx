@@ -2316,7 +2316,6 @@ export default function KausebolModel() {
     .nav2 button:hover{color:var(--paper);background:rgba(255,255,255,.07)}
     .lhead:hover{background:rgba(127,165,94,.09)}
     .ghead:hover{background:rgba(127,165,94,.09)}
-    .maprow a:hover{background:var(--skog-l)}
     .vcell:hover em{opacity:1}
   }
 
