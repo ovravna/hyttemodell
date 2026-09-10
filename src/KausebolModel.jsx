@@ -2393,6 +2393,19 @@ export default function KausebolModel() {
     .num{font-size:12.5px}
   }
 
+  /* On a touch screen the hit area decides whether a dial is usable at all.
+     The band was 26px — narrower than a fingertip — and a miss lands on the
+     label, where a drag scrolls the page instead of moving the value. Give
+     the input a 44px band that reaches down over the note, with a z-index so
+     it wins the hit test there, and pull the bottom margin back in by the
+     same amount: the track stays where it was drawn and the dial keeps its
+     height. touch-action:none stops the browser claiming a slightly wobbly
+     drag as a scroll; the head and note rows are still there to scroll from. */
+  @media (pointer:coarse){
+    .kw input[type=range]{height:44px;margin:0 0 -9px;
+      position:relative;z-index:1;touch-action:none}
+  }
+
   @media (prefers-reduced-motion:reduce){
     .kw *{transition:none!important;animation:none!important}
     .vinner{transform:none;top:0}
