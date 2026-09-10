@@ -2,9 +2,17 @@
 <html lang="no">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Kausebøl 19 — hyttemodell</title>
     <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#16221B" />
+    <style>
+      /* .kw scoper all egen styling, så body-reset hører hjemme her */
+      html, body { margin: 0; padding: 0; }
+      /* samme som --paper i komponenten: dekker overscroll-området */
+      body { background: #EDEFE8; }
+      #root { min-height: 100vh; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
