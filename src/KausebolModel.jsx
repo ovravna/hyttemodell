@@ -87,6 +87,7 @@ const T = {
       pnRecurring: "Drift og vedlikehold i eiertiden",
       pnSunk: "Sum, det hytta har kostet oss",
       pnPer: "per døgn",
+      heatCut: (p) => "−" + p + " % etter tiltak",
       pnNote:
         "Kjøpesummen står i hytta og er fortsatt vår, så den er ikke med her.",
       pnProfit: "Her går vi i pluss, så døgnprisen er negativ. Det skjer sjelden.",
@@ -135,7 +136,7 @@ const T = {
     splitPer: "Per hytte",
     splitNote: "Tallene her er før egeninnsats. Raden i tiltakslisten er den som gjelder.",
     usage: "Hvor mye bruker du hytta",
-    usageNote: "Styrer strøm, ved, poser og filter til forbrenningstoalettet. Hytta har energikarakter G, så oppvarming er den store posten. Holder du den frostfri hele vinteren, havner du i øvre ende.",
+    usageNote: "Styrer strøm, ved, poser og filter til forbrenningstoalettet. Hytta har energikarakter G, så oppvarming er den store posten. Holder du den frostfri hele vinteren, havner du i øvre ende. Tak, vinduer og kledning trekker strøm- og vedforbruket ned.",
     usageBuckets: ["Noen helger", "Sommerhelger", "Jevnlig", "Mye", "Nesten hele året"],
     nightsUnit: "døgn i året",
     grpFixed: "Faste kostnader",
@@ -309,6 +310,7 @@ const T = {
       pnRecurring: "Running and upkeep over the period",
       pnSunk: "Total, what the cabin has cost us",
       pnPer: "per night",
+      heatCut: (p) => "−" + p + " % after works",
       pnNote:
         "The purchase money sits in the cabin and is still ours, so it is not counted here.",
       pnProfit: "We come out ahead here, so the nightly cost is negative. That is rare.",
@@ -357,7 +359,7 @@ const T = {
     splitPer: "Per cabin",
     splitNote: "These figures are before own labour. The row in the works list is the one that counts.",
     usage: "How much you use it",
-    usageNote: "Drives electricity, firewood, and bags and filters for the incinerating toilet. The cabin is energy rated G, so heating is the big item. Keep it above freezing all winter and you land at the top of the range.",
+    usageNote: "Drives electricity, firewood, and bags and filters for the incinerating toilet. The cabin is energy rated G, so heating is the big item. Keep it above freezing all winter and you land at the top of the range. Roof, windows and cladding bring the power and firewood down.",
     usageBuckets: ["A few weekends", "Summer weekends", "Regularly", "A lot", "Almost year-round"],
     nightsUnit: "nights a year",
     grpFixed: "Fixed costs",
@@ -536,6 +538,7 @@ const T = {
       pnRecurring: "Gestione e manutenzione nel periodo",
       pnSunk: "Totale, quanto ci è costata la baita",
       pnPer: "a notte",
+      heatCut: (p) => "−" + p + " % dopo i lavori",
       pnNote:
         "I soldi dell'acquisto stanno nella baita e restano nostri, quindi non sono conteggiati qui.",
       pnProfit: "Qui siamo in attivo, quindi il costo a notte è negativo. Succede di rado.",
@@ -584,7 +587,7 @@ const T = {
     splitPer: "Per baita",
     splitNote: "Cifre al lordo del lavoro proprio. Fa fede la riga nell'elenco interventi.",
     usage: "Quanto la usi",
-    usageNote: "Determina elettricità, legna, sacchi e filtri del WC a incenerimento. La baita è in classe G, quindi il riscaldamento è la voce principale. Tenerla sopra zero tutto l\u2019inverno ti porta al massimo.",
+    usageNote: "Determina elettricità, legna, sacchi e filtri del WC a incenerimento. La baita è in classe G, quindi il riscaldamento è la voce principale. Tenerla sopra zero tutto l\u2019inverno ti porta al massimo. Tetto, finestre e rivestimento abbassano elettricità e legna.",
     usageBuckets: ["Qualche weekend", "Weekend estivi", "Regolarmente", "Molto", "Quasi tutto l\u2019anno"],
     nightsUnit: "notti all\u2019anno",
     grpFixed: "Costi fissi",
@@ -1656,10 +1659,26 @@ export default function KausebolModel() {
   /* usage-driven costs, thousands of NOK per year */
   const EL_PRICE = 1.5;
   const nights = Math.round(lerp(8, 120, usage));
-  const kwh = lerp(1000, 9000, Math.pow(usage, 1.2));
+
+  /* Heating follows the envelope, not just how much the cabin is used. The
+     cabin is rated G, so what leaks out is the biggest line, and sealing it
+     is the one thing that changes that. Only the parts that actually hold
+     heat count, weighted by how much each is worth: draught-proof windows do
+     more than cladding, and cladding more than the roof, which is mostly
+     about keeping water out. Drainage and the deck do nothing for heat, so
+     they are absent here even though they count towards upkeep above.
+     All three done is a 30% cut, which is the modest end of what a 1969
+     cabin gains: it stays a poorly insulated timber box either way. */
+  const HEAT = { windows: 0.14, cladding: 0.1, roof: 0.06 };
+  const heatSaved = Object.entries(HEAT).reduce(
+    (sum, [k, w]) => sum + (sel[k] ? w : 0),
+    0
+  );
+  const heatFactor = 1 - heatSaved;
+  const kwh = lerp(1000, 9000, Math.pow(usage, 1.2)) * heatFactor;
   const cPower = (kwh * EL_PRICE) / 1000;
   const cToilet = lerp(0.5, 3, usage);
-  const cWood = lerp(0.8, 5, usage);
+  const cWood = lerp(0.8, 5, usage) * heatFactor;
   const cPump = lerp(0.6, 1.4, usage);
   const cTravel = travel ? ((nights / 2.5) * 330) / 1000 : 0;
   const useCost = cPower + cToilet + cWood + cPump + cTravel;
@@ -2321,6 +2340,8 @@ export default function KausebolModel() {
     border-bottom:1px solid var(--line);
     font-family:'Archivo Narrow',sans-serif;font-size:13.5px;
     font-variant-numeric:tabular-nums;color:var(--ink2)}
+  /* marks a running cost the envelope work brought down */
+  .runrow em.cut{color:var(--skog);font-weight:600}
   .pn-row.nil{color:var(--ink3)}
   /* a line can come out negative when the cabin gains value: that is a gain,
      not a mistake, so it reads green rather than looking like a broken sum */
@@ -3157,6 +3178,11 @@ export default function KausebolModel() {
                 <div className="runrow">
                   <span>
                     {t.itPower} <em>{fmt(kwh)} kWh</em>
+                    {heatSaved > 0 ? (
+                      <em className="cut">
+                        {t.story.heatCut(Math.round(heatSaved * 100))}
+                      </em>
+                    ) : null}
                   </span>
                   <span>
                     <Money v={cPower * 1000} />
@@ -3169,7 +3195,14 @@ export default function KausebolModel() {
                   </span>
                 </div>
                 <div className="runrow">
-                  <span>{t.itWood}</span>
+                  <span>
+                    {t.itWood}
+                    {heatSaved > 0 ? (
+                      <em className="cut">
+                        {t.story.heatCut(Math.round(heatSaved * 100))}
+                      </em>
+                    ) : null}
+                  </span>
                   <span>
                     <Money v={cWood * 1000} />
                   </span>
