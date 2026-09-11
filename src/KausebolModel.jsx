@@ -2159,18 +2159,19 @@ export default function KausebolModel() {
   /* .kw prefix: without it the .kw h2 margin reset wins on specificity */
   .kw .chap-title{font-size:clamp(22px,3.6vw,30px);line-height:1.15;margin:0 0 14px;
     letter-spacing:-.01em}
-  /* The unfound state is a raised dot, not a question mark: a "?" after the
-     heading reads as though the heading were asking something. Dotted rule,
-     the same hint the glossary terms use. */
-  .egg{font:inherit;font-size:.42em;font-weight:700;vertical-align:.75em;
-    margin-left:.3em;padding:0 1px 2px;background:none;border:0;
-    border-bottom:1px dotted var(--ink3);cursor:pointer;color:var(--ink3);
-    line-height:1;font-family:'Archivo Narrow',sans-serif;letter-spacing:.04em;
-    transition:color .15s ease,border-bottom-color .15s ease}
-  .egg:hover{color:var(--skog);border-bottom-color:var(--skog)}
-  .egg.on{color:var(--skog);border-bottom-color:transparent;cursor:default;
-    letter-spacing:.01em}
-  .egg:focus-visible{outline:2px solid var(--skog);outline-offset:2px}
+  /* Just three grey dots after the year. No underline: the dots are already
+     the whole hint, and a dotted rule under them read as a rendering fault
+     rather than something to press. */
+  .egg{font:inherit;font-size:.5em;font-weight:700;vertical-align:.28em;
+    margin-left:.32em;padding:0;background:none;border:0;cursor:pointer;
+    color:var(--ink3);line-height:1;letter-spacing:.06em;
+    transition:color .15s ease}
+  .egg:hover{color:var(--ink2)}
+  .egg.on{color:var(--skog);cursor:default;font-size:.42em;
+    vertical-align:.75em;letter-spacing:.01em;
+    font-family:'Archivo Narrow',sans-serif}
+  .egg:focus-visible{outline:2px solid var(--skog);outline-offset:2px;
+    border-radius:2px}
   .chap-lede{font-family:Newsreader,Georgia,serif;font-size:18.5px;line-height:1.55;
     margin:0 0 0.7em;color:var(--ink2)}
   .chap-lede:first-of-type{color:var(--ink)}
