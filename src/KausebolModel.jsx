@@ -1769,7 +1769,7 @@ export default function KausebolModel() {
         onClick={() => setOpen(!open)}
         aria-label={open ? text : "\u2026"}
       >
-        {open ? text : "\u00b7\u00b7\u00b7"}
+        {open ? text : "\u2026"}
       </button>
     );
   };
@@ -2189,15 +2189,16 @@ export default function KausebolModel() {
   /* .kw prefix: without it the .kw h2 margin reset wins on specificity */
   .kw .chap-title{font-size:clamp(22px,3.6vw,30px);line-height:1.15;margin:0 0 14px;
     letter-spacing:-.01em}
-  /* Three dots after the year, in the palette's lightest ink so they sit
-     just above the paper, resting on the title's baseline like a real
-     ellipsis. A button does not baseline-align with surrounding text the way
-     a span does, and plain vertical-align:baseline still left them 4px low,
-     so the offset is measured: .41em of the dots' own size puts them exactly
-     on the line. */
-  .egg{font:inherit;font-size:.34em;font-weight:700;vertical-align:.41em;
-    margin-left:.5em;padding:0;background:none;border:0;cursor:pointer;
-    color:var(--line);line-height:1;letter-spacing:.12em;
+  /* An ellipsis after the year, in the palette's lightest ink so it sits
+     just above the paper. U+2026 rather than three middots: the middot is a
+     vertically centred glyph and floated above the line whatever the box did.
+     The ellipsis rests on its own baseline (zero descent), so it needs no
+     vertical nudge at all — inline-block would invent one, hence plain
+     inline and baseline. */
+  .egg{font:inherit;font-size:.62em;font-weight:700;
+    display:inline;vertical-align:baseline;
+    margin-left:.34em;padding:0;background:none;border:0;cursor:pointer;
+    color:var(--line);line-height:inherit;letter-spacing:.02em;
     transition:color .15s ease}
   .egg:hover{color:var(--ink3)}
   .egg.on{color:var(--skog);cursor:default;font-size:.4em;
