@@ -82,12 +82,12 @@ const T = {
       pnTitle: "Hva koster ett døgn på hytta?",
       pnLead: (n, y) =>
         n + " døgn i året i " + y + " år, altså " + (n * y) + " døgn til sammen.",
-      pnOneOff: "Engangs: kjøp og tiltak vi ikke får igjen",
+      pnOneOff: "Engangs: den delen av kjøp og tiltak som ikke sitter i verdien",
       pnRecurring: "Løpende: drift og vedlikehold i eiertiden",
-      pnSunk: "Dette er borte når vi selger",
+      pnSunk: "Sum, det hytta har kostet oss",
       pnPer: "per døgn",
       pnNote:
-        "Kjøpesummen får vi stort sett igjen når vi selger, så den regnes ikke inn. Det som står igjen er det tiltakene og driften faktisk kostet oss.",
+        "Pengene i kjøpesummen er ikke brukt opp, de står i hytta. Enten vi selger eller blir boende, er de fortsatt våre. Derfor teller vi bare det som faktisk går med: driften, og den delen av oppussingen vi ikke får igjen i verdi.",
       pnProfit: "Her går vi i pluss, så døgnprisen er negativ. Det skjer sjelden.",
       ch4kicker: "Kapittel 4",
       ch4title: "Men så er det det andre regnestykket",
@@ -303,12 +303,12 @@ const T = {
       pnTitle: "What does one night at the cabin cost?",
       pnLead: (n, y) =>
         n + " nights a year for " + y + " years, so " + (n * y) + " nights in all.",
-      pnOneOff: "One-off: purchase and works we do not get back",
+      pnOneOff: "One-off: the part of purchase and works not held in the value",
       pnRecurring: "Recurring: running and upkeep over the period",
-      pnSunk: "This is gone when we sell",
+      pnSunk: "Total, what the cabin has cost us",
       pnPer: "per night",
       pnNote:
-        "We mostly get the purchase price back when we sell, so it is not counted here. What remains is what the works and the upkeep actually cost us.",
+        "The purchase money is not spent, it sits in the cabin. Whether we sell or stay, it is still ours. So we count only what actually goes: the upkeep, and the part of the works we do not get back in value.",
       pnProfit: "We come out ahead here, so the nightly cost is negative. That is rare.",
       ch4kicker: "Chapter 4",
       ch4title: "But then there is the other sum",
@@ -529,12 +529,12 @@ const T = {
       pnTitle: "Quanto costa una notte in baita?",
       pnLead: (n, y) =>
         n + " notti all'anno per " + y + " anni, quindi " + (n * y) + " notti in tutto.",
-      pnOneOff: "Una tantum: acquisto e interventi che non recuperiamo",
+      pnOneOff: "Una tantum: la parte di acquisto e interventi che non resta nel valore",
       pnRecurring: "Ricorrenti: gestione e manutenzione nel periodo",
-      pnSunk: "Questo se ne va quando vendiamo",
+      pnSunk: "Totale, quanto ci è costata la baita",
       pnPer: "a notte",
       pnNote:
-        "Il prezzo d'acquisto lo recuperiamo in gran parte vendendo, quindi non è conteggiato. Resta quello che interventi e gestione ci sono costati davvero.",
+        "I soldi dell'acquisto non sono spesi, stanno nella baita. Che la vendiamo o la teniamo, restano nostri. Contiamo quindi solo ciò che se ne va davvero: la gestione, e la parte di lavori che non torna in valore.",
       pnProfit: "Qui siamo in attivo, quindi il costo a notte è negativo. Succede di rado.",
       ch4kicker: "Capitolo 4",
       ch4title: "Ma poi c'è l'altro conto",
@@ -2287,28 +2287,30 @@ export default function KausebolModel() {
     box-shadow:inset 0 0 0 3px var(--skog)}
   .seg button:focus-visible{outline:2px solid var(--skog);outline-offset:-2px}
   .seglabel{font-family:'Archivo Narrow',sans-serif;font-size:11.5px;color:var(--ink3);margin:14px 0 5px}
-  /* the per-night figure: the answer to what a stay actually costs */
-  .pernight{margin:22px 0 0;border:1px solid var(--ink);background:var(--ink);
-    color:var(--paper);padding:20px 20px 18px}
-  .pn-head h3{margin:0 0 4px;font-size:17px;letter-spacing:-.005em}
-  .pn-lead{margin:0 0 15px;font-family:'Archivo Narrow',sans-serif;font-size:13px;
-    color:#93A697}
-  .pn-rows{border-top:1px solid rgba(255,255,255,.14)}
+  /* The per-night figure. Deliberately not on the dark ground: in this page
+     dark means the pinned bar, and a second dark block in the flow would read
+     as something that had come loose from it. A green edge instead. */
+  .pernight{margin:22px 0 0;background:var(--card);border:1px solid var(--line);
+    border-left:3px solid var(--skog);border-radius:3px;padding:18px 20px 17px}
+  .pn-head h3{margin:0 0 4px;font-size:17px;letter-spacing:-.005em;color:var(--ink)}
+  .pn-lead{margin:0 0 14px;font-family:'Archivo Narrow',sans-serif;font-size:13px;
+    color:var(--ink3)}
+  .pn-rows{border-top:1px solid var(--line)}
   .pn-row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;
-    border-bottom:1px solid rgba(255,255,255,.09);
+    border-bottom:1px solid var(--line);
     font-family:'Archivo Narrow',sans-serif;font-size:13.5px;
-    font-variant-numeric:tabular-nums;color:#C6D2C7}
-  .pn-row.tot{border-bottom:0;border-top:1.5px solid rgba(255,255,255,.3);
+    font-variant-numeric:tabular-nums;color:var(--ink2)}
+  .pn-row.tot{border-bottom:0;border-top:1.5px solid var(--ink);
     margin-top:4px;padding-top:9px;font-weight:600;font-family:Archivo,sans-serif;
-    color:var(--paper)}
-  .pn-big{display:flex;align-items:baseline;gap:9px;margin:16px 0 0}
+    color:var(--ink)}
+  .pn-big{display:flex;align-items:baseline;gap:9px;margin:15px 0 0}
   .pn-big strong{font-size:clamp(30px,6vw,42px);line-height:1;font-weight:700;
-    letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--skog-l)}
-  .pn-unit{font-size:.45em;font-weight:500;margin-left:3px;color:#93A697}
+    letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .pn-unit{font-size:.45em;font-weight:500;margin-left:3px;color:var(--ink3)}
   .pn-big em{font-style:normal;font-family:'Archivo Narrow',sans-serif;
-    font-size:14px;color:#93A697}
+    font-size:14px;color:var(--ink2)}
   .pn-note{margin:12px 0 0;font-family:'Archivo Narrow',sans-serif;font-size:12.5px;
-    line-height:1.55;color:#93A697;max-width:62ch}
+    line-height:1.55;color:var(--ink3);max-width:62ch}
 
   /* handed over to the pinned bar: invisible and inert, box preserved */
   .handover{transition:opacity .22s ease-out}
