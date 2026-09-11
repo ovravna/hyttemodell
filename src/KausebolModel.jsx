@@ -82,13 +82,13 @@ const T = {
       pnTitle: "Hva koster ett døgn på hytta?",
       pnLead: (n, y) =>
         n + " døgn i året i " + y + " år, altså " + (n * y) + " døgn til sammen.",
-      pnOneOff: "Kjøp og omkostninger, minus det hytta er verdt",
+      pnOneOff: "Kjøpet: omkostninger, og verdien opp eller ned",
       pnWorks: "Oppussing vi ikke får igjen i verdi",
       pnRecurring: "Drift og vedlikehold i eiertiden",
       pnSunk: "Sum, det hytta har kostet oss",
       pnPer: "per døgn",
       pnNote:
-        "Pengene i kjøpesummen er ikke brukt opp, de står i hytta. Enten vi selger eller blir boende, er de fortsatt våre. Derfor teller vi bare det som faktisk går med: driften, og den delen av oppussingen vi ikke får igjen i verdi.",
+        "Kjøpesummen står i hytta og er fortsatt vår, så den er ikke med her.",
       pnProfit: "Her går vi i pluss, så døgnprisen er negativ. Det skjer sjelden.",
       ch4kicker: "Kapittel 4",
       ch4title: "Men så er det det andre regnestykket",
@@ -304,13 +304,13 @@ const T = {
       pnTitle: "What does one night at the cabin cost?",
       pnLead: (n, y) =>
         n + " nights a year for " + y + " years, so " + (n * y) + " nights in all.",
-      pnOneOff: "Purchase and fees, less what the cabin is worth",
+      pnOneOff: "The purchase: fees, and the value up or down",
       pnWorks: "Works we do not get back in value",
       pnRecurring: "Running and upkeep over the period",
       pnSunk: "Total, what the cabin has cost us",
       pnPer: "per night",
       pnNote:
-        "The purchase money is not spent, it sits in the cabin. Whether we sell or stay, it is still ours. So we count only what actually goes: the upkeep, and the part of the works we do not get back in value.",
+        "The purchase money sits in the cabin and is still ours, so it is not counted here.",
       pnProfit: "We come out ahead here, so the nightly cost is negative. That is rare.",
       ch4kicker: "Chapter 4",
       ch4title: "But then there is the other sum",
@@ -531,13 +531,13 @@ const T = {
       pnTitle: "Quanto costa una notte in baita?",
       pnLead: (n, y) =>
         n + " notti all'anno per " + y + " anni, quindi " + (n * y) + " notti in tutto.",
-      pnOneOff: "Acquisto e spese, meno quanto vale la baita",
+      pnOneOff: "L'acquisto: spese, e il valore su o giù",
       pnWorks: "Lavori che non tornano in valore",
       pnRecurring: "Gestione e manutenzione nel periodo",
       pnSunk: "Totale, quanto ci è costata la baita",
       pnPer: "a notte",
       pnNote:
-        "I soldi dell'acquisto non sono spesi, stanno nella baita. Che la vendiamo o la teniamo, restano nostri. Contiamo quindi solo ciò che se ne va davvero: la gestione, e la parte di lavori che non torna in valore.",
+        "I soldi dell'acquisto stanno nella baita e restano nostri, quindi non sono conteggiati qui.",
       pnProfit: "Qui siamo in attivo, quindi il costo a notte è negativo. Succede di rado.",
       ch4kicker: "Capitolo 4",
       ch4title: "Ma poi c'è l'altro conto",
@@ -2312,13 +2312,19 @@ export default function KausebolModel() {
   .pn-head h3{margin:0 0 4px;font-size:17px;letter-spacing:-.005em;color:var(--ink)}
   .pn-lead{margin:0 0 14px;font-family:'Archivo Narrow',sans-serif;font-size:13px;
     color:var(--ink3)}
-  .pn-dial{margin:0 0 14px;padding:0 0 14px;border-bottom:1px solid var(--line)}
+  /* the dial sits above the rows; .pn-rows draws the rule between them, so
+     this one has none of its own or the two stack into a double line */
+  .pn-dial{margin:0 0 13px}
   .pn-dial .dial{margin-bottom:0}
   .pn-rows{border-top:1px solid var(--line)}
   .pn-row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;
     border-bottom:1px solid var(--line);
     font-family:'Archivo Narrow',sans-serif;font-size:13.5px;
     font-variant-numeric:tabular-nums;color:var(--ink2)}
+  .pn-row.nil{color:var(--ink3)}
+  /* a line can come out negative when the cabin gains value: that is a gain,
+     not a mistake, so it reads green rather than looking like a broken sum */
+  .pn-row.gain > span:last-child{color:var(--skog)}
   /* the label may wrap, the amount never: a broken figure is unreadable */
   .pn-row > span:last-child{white-space:nowrap;flex-shrink:0}
   .pn-row.tot{border-bottom:0;border-top:1.5px solid var(--ink);
@@ -3246,20 +3252,20 @@ export default function KausebolModel() {
                   />
                 </div>
                 <div className="pn-rows">
-                  <div className="pn-row">
+                  <div className={"pn-row" + (capitalGap < 0 ? " gain" : "")}>
                     <span>{t.story.pnOneOff}</span>
                     <span>
                       <Money v={capitalGap * 1000} />
                     </span>
                   </div>
-                  {worksLoss > 0 ? (
-                    <div className="pn-row">
-                      <span>{t.story.pnWorks}</span>
-                      <span>
-                        <Money v={worksLoss * 1000} />
-                      </span>
-                    </div>
-                  ) : null}
+                  {/* always shown, including at zero: the row answers a
+                      question the reader is asking, and 0 is an answer */}
+                  <div className={"pn-row" + (worksLoss === 0 ? " nil" : "")}>
+                    <span>{t.story.pnWorks}</span>
+                    <span>
+                      <Money v={worksLoss * 1000} />
+                    </span>
+                  </div>
                   <div className="pn-row">
                     <span>{t.story.pnRecurring}</span>
                     <span>
