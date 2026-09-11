@@ -79,6 +79,16 @@ const T = {
       ch3more: "Forutsetningene bak tallene",
       ch3ask: "Skal vi regne med det hytta koster å ha?",
       ch3askYes: "Ja, ta med løpende kostnader",
+      pnTitle: "Hva koster ett døgn på hytta?",
+      pnLead: (n, y) =>
+        n + " døgn i året i " + y + " år, altså " + (n * y) + " døgn til sammen.",
+      pnOneOff: "Engangs: kjøp og tiltak vi ikke får igjen",
+      pnRecurring: "Løpende: drift og vedlikehold i eiertiden",
+      pnSunk: "Dette er borte når vi selger",
+      pnPer: "per døgn",
+      pnNote:
+        "Kjøpesummen får vi stort sett igjen når vi selger, så den regnes ikke inn. Det som står igjen er det tiltakene og driften faktisk kostet oss.",
+      pnProfit: "Her går vi i pluss, så døgnprisen er negativ. Det skjer sjelden.",
       ch4kicker: "Kapittel 4",
       ch4title: "Men så er det det andre regnestykket",
       ch4body: [
@@ -290,6 +300,16 @@ const T = {
       ch3more: "The assumptions behind the figures",
       ch3ask: "Shall we count what the cabin costs to keep?",
       ch3askYes: "Yes, include running costs",
+      pnTitle: "What does one night at the cabin cost?",
+      pnLead: (n, y) =>
+        n + " nights a year for " + y + " years, so " + (n * y) + " nights in all.",
+      pnOneOff: "One-off: purchase and works we do not get back",
+      pnRecurring: "Recurring: running and upkeep over the period",
+      pnSunk: "This is gone when we sell",
+      pnPer: "per night",
+      pnNote:
+        "We mostly get the purchase price back when we sell, so it is not counted here. What remains is what the works and the upkeep actually cost us.",
+      pnProfit: "We come out ahead here, so the nightly cost is negative. That is rare.",
       ch4kicker: "Chapter 4",
       ch4title: "But then there is the other sum",
       ch4body: [
@@ -506,6 +526,16 @@ const T = {
       ch3more: "Le ipotesi dietro i numeri",
       ch3ask: "Contiamo quanto costa tenerla?",
       ch3askYes: "Sì, includi i costi ricorrenti",
+      pnTitle: "Quanto costa una notte in baita?",
+      pnLead: (n, y) =>
+        n + " notti all'anno per " + y + " anni, quindi " + (n * y) + " notti in tutto.",
+      pnOneOff: "Una tantum: acquisto e interventi che non recuperiamo",
+      pnRecurring: "Ricorrenti: gestione e manutenzione nel periodo",
+      pnSunk: "Questo se ne va quando vendiamo",
+      pnPer: "a notte",
+      pnNote:
+        "Il prezzo d'acquisto lo recuperiamo in gran parte vendendo, quindi non è conteggiato. Resta quello che interventi e gestione ci sono costati davvero.",
+      pnProfit: "Qui siamo in attivo, quindi il costo a notte è negativo. Succede di rado.",
       ch4kicker: "Capitolo 4",
       ch4title: "Ma poi c'è l'altro conto",
       ch4body: [
@@ -1647,6 +1677,19 @@ export default function KausebolModel() {
   const capped = rawValue > ceiling;
   const delta = value - totalIn;
 
+  /* What a night actually costs. Total spend over the period divided by
+     nights would be wrong: most of the purchase price comes back when the
+     cabin is sold, and charging the reader for capital they recover would
+     roughly triple the figure. The real cost of the stay is what is gone at
+     the end, which is exactly -delta, whether it went on interest, repairs
+     or firewood. Running costs are only part of that, so the split below
+     shows the two halves separately. */
+  const totalNights = nights * years;
+  const oneOff = price + fees + worksCost - value; /* capital not recovered */
+  const recurring = runIn;
+  const sunk = oneOff + recurring; /* === -delta */
+  const perNight = totalNights > 0 ? (sunk * 1000) / totalNights : 0;
+
   const figs = [
     [
       t.verdictIn,
@@ -2244,6 +2287,29 @@ export default function KausebolModel() {
     box-shadow:inset 0 0 0 3px var(--skog)}
   .seg button:focus-visible{outline:2px solid var(--skog);outline-offset:-2px}
   .seglabel{font-family:'Archivo Narrow',sans-serif;font-size:11.5px;color:var(--ink3);margin:14px 0 5px}
+  /* the per-night figure: the answer to what a stay actually costs */
+  .pernight{margin:22px 0 0;border:1px solid var(--ink);background:var(--ink);
+    color:var(--paper);padding:20px 20px 18px}
+  .pn-head h3{margin:0 0 4px;font-size:17px;letter-spacing:-.005em}
+  .pn-lead{margin:0 0 15px;font-family:'Archivo Narrow',sans-serif;font-size:13px;
+    color:#93A697}
+  .pn-rows{border-top:1px solid rgba(255,255,255,.14)}
+  .pn-row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;
+    border-bottom:1px solid rgba(255,255,255,.09);
+    font-family:'Archivo Narrow',sans-serif;font-size:13.5px;
+    font-variant-numeric:tabular-nums;color:#C6D2C7}
+  .pn-row.tot{border-bottom:0;border-top:1.5px solid rgba(255,255,255,.3);
+    margin-top:4px;padding-top:9px;font-weight:600;font-family:Archivo,sans-serif;
+    color:var(--paper)}
+  .pn-big{display:flex;align-items:baseline;gap:9px;margin:16px 0 0}
+  .pn-big strong{font-size:clamp(30px,6vw,42px);line-height:1;font-weight:700;
+    letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--skog-l)}
+  .pn-unit{font-size:.45em;font-weight:500;margin-left:3px;color:#93A697}
+  .pn-big em{font-style:normal;font-family:'Archivo Narrow',sans-serif;
+    font-size:14px;color:#93A697}
+  .pn-note{margin:12px 0 0;font-family:'Archivo Narrow',sans-serif;font-size:12.5px;
+    line-height:1.55;color:#93A697;max-width:62ch}
+
   /* handed over to the pinned bar: invisible and inert, box preserved */
   .handover{transition:opacity .22s ease-out}
   .handover.gone{opacity:0;pointer-events:none}
@@ -2358,6 +2424,8 @@ export default function KausebolModel() {
     .runrow{font-size:13px}
     .bx-num{font-size:13px}
     .cols{grid-template-columns:1fr;gap:26px}
+    .pernight{padding:17px 16px 15px}
+    .pn-row{font-size:12.5px}
     .chap-lede{font-size:17px}
     .chap{margin-bottom:22px}
     .plancols{grid-template-columns:1fr;gap:22px}
@@ -3133,11 +3201,49 @@ export default function KausebolModel() {
             ) : null}
           </div>
           {inclRun ? (
-            <Fold label={t.story.ch3more}>
-              <div className="prose">
-                <p>{t.runFoot}</p>
+            <>
+              <div className="pernight">
+                <div className="pn-head">
+                  <h3>{t.story.pnTitle}</h3>
+                  <p className="pn-lead">{t.story.pnLead(nights, years)}</p>
+                </div>
+                <div className="pn-rows">
+                  <div className="pn-row">
+                    <span>{t.story.pnOneOff}</span>
+                    <span>
+                      <Money v={oneOff * 1000} />
+                    </span>
+                  </div>
+                  <div className="pn-row">
+                    <span>{t.story.pnRecurring}</span>
+                    <span>
+                      <Money v={recurring * 1000} />
+                    </span>
+                  </div>
+                  <div className="pn-row tot">
+                    <span>{t.story.pnSunk}</span>
+                    <span>
+                      <Money v={sunk * 1000} />
+                    </span>
+                  </div>
+                </div>
+                <div className="pn-big">
+                  <strong>
+                    <Money v={Math.round(perNight)} />
+                    <span className="pn-unit">kr</span>
+                  </strong>
+                  <em>{t.story.pnPer}</em>
+                </div>
+                <p className="pn-note">
+                  {perNight < 0 ? t.story.pnProfit : t.story.pnNote}
+                </p>
               </div>
-            </Fold>
+              <Fold label={t.story.ch3more}>
+                <div className="prose">
+                  <p>{t.runFoot}</p>
+                </div>
+              </Fold>
+            </>
           ) : null}
         </section>
 
