@@ -2160,9 +2160,12 @@ export default function KausebolModel() {
   .kw .chap-title{font-size:clamp(22px,3.6vw,30px);line-height:1.15;margin:0 0 14px;
     letter-spacing:-.01em}
   /* Three dots after the year, in the palette's lightest ink so they sit
-     just above the paper. They rest on the baseline like a real ellipsis
-     rather than riding high: raised, they looked like a footnote marker. */
-  .egg{font:inherit;font-size:.34em;font-weight:700;vertical-align:-.39em;
+     just above the paper, resting on the title's baseline like a real
+     ellipsis. A button does not baseline-align with surrounding text the way
+     a span does, and plain vertical-align:baseline still left them 4px low,
+     so the offset is measured: .41em of the dots' own size puts them exactly
+     on the line. */
+  .egg{font:inherit;font-size:.34em;font-weight:700;vertical-align:.41em;
     margin-left:.5em;padding:0;background:none;border:0;cursor:pointer;
     color:var(--line);line-height:1;letter-spacing:.12em;
     transition:color .15s ease}
