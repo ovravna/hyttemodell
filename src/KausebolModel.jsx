@@ -58,12 +58,13 @@ const T = {
     unfold: "Vis mer",
     story: {
       ch1kicker: "Kapittel 1",
-      ch1title: "Vi kjøper en hytte fra 1969",
+      ch1title: "Vi kan kjøpe en hytte fra 1969",
       ch1body: [
-        "500 000 kroner. Det er billigere enn en brukt bil, og det er en hytte. Med tinglysing og gebyrer er vi oppe i 513 850, og da har vi ikke rørt en spiker.",
-        "Men kjøpesummen er den enkle delen. Det er resten av regnestykket vi må bli enige om.",
+        "Prisantydningen er 500 000 kroner. Med tinglysing og gebyrer er vi oppe i 513 850, før vi har gjort noe med hytta.",
+        "Kjøpesummen er den delen vi vet. Resten av siden handler om det som kommer etterpå.",
       ],
       ch1more: "Hvorfor prisen er så lav",
+      ch1egg: "nice",
       ch2kicker: "Kapittel 2",
       ch2title: "Noe må gjøres med taket",
       ch2body: [
@@ -281,12 +282,13 @@ const T = {
     unfold: "Show more",
     story: {
       ch1kicker: "Chapter 1",
-      ch1title: "We buy a cabin from 1969",
+      ch1title: "We could buy a cabin from 1969",
       ch1body: [
-        "NOK 500,000. That is less than a used car, and it is a cabin. With registration and fees we are at 513,850, and we have not touched a nail.",
-        "But the purchase is the easy part. It is the rest of the sum we need to agree on.",
+        "The asking price is NOK 500,000. With registration and fees we are at 513,850, before doing anything to the cabin.",
+        "The purchase is the part we know. The rest of this page is about what comes after.",
       ],
       ch1more: "Why the price is this low",
+      ch1egg: "nice",
       ch2kicker: "Chapter 2",
       ch2title: "Something has to be done about the roof",
       ch2body: [
@@ -509,12 +511,13 @@ const T = {
     unfold: "Mostra più",
     story: {
       ch1kicker: "Capitolo 1",
-      ch1title: "Compriamo una baita del 1969",
+      ch1title: "Potremmo comprare una baita del 1969",
       ch1body: [
-        "500.000 NOK. Costa meno di un'auto usata, ed è una baita. Con registrazione e diritti siamo a 513.850, e non abbiamo ancora toccato un chiodo.",
-        "Ma l'acquisto è la parte facile. È sul resto del conto che dobbiamo metterci d'accordo.",
+        "Il prezzo richiesto è 500.000 NOK. Con registrazione e diritti siamo a 513.850, prima di aver fatto qualsiasi cosa alla baita.",
+        "L'acquisto è la parte che conosciamo. Il resto della pagina riguarda ciò che viene dopo.",
       ],
       ch1more: "Perché il prezzo è così basso",
+      ch1egg: "nice",
       ch2kicker: "Capitolo 2",
       ch2title: "Il tetto va rifatto",
       ch2body: [
@@ -1740,11 +1743,30 @@ export default function KausebolModel() {
   const axisMax = Math.max(totalIn, ceiling, value) * 1.02;
   const pc = (v) => Math.max(0, Math.min(100, (v / axisMax) * 100));
 
+  /* A small thing to find. The dot carries the same dotted underline the
+     glossary terms use, so it reads as "there is something here" without
+     saying what; clicking says it. Once found it stays found. */
+  const Egg = ({ text }) => {
+    const [open, setOpen] = useState(false);
+    return (
+      <button
+        className={"egg" + (open ? " on" : "")}
+        onClick={() => setOpen(!open)}
+        aria-label={open ? text : "\u2026"}
+      >
+        {open ? text : "\u00b7\u00b7\u00b7"}
+      </button>
+    );
+  };
+
   /* Chapter heading: kicker + title, opens each step of the story. */
-  const Chapter = ({ kicker, title, body }) => (
+  const Chapter = ({ kicker, title, body, egg }) => (
     <div className="chap">
       <div className="chap-kicker">{kicker}</div>
-      <h2 className="chap-title">{title}</h2>
+      <h2 className="chap-title">
+        {title}
+        {egg ? <Egg text={egg} /> : null}
+      </h2>
       {body.map((p, i) => (
         <p className="chap-lede" key={i}>
           {p}
@@ -2137,6 +2159,18 @@ export default function KausebolModel() {
   /* .kw prefix: without it the .kw h2 margin reset wins on specificity */
   .kw .chap-title{font-size:clamp(22px,3.6vw,30px);line-height:1.15;margin:0 0 14px;
     letter-spacing:-.01em}
+  /* The unfound state is a raised dot, not a question mark: a "?" after the
+     heading reads as though the heading were asking something. Dotted rule,
+     the same hint the glossary terms use. */
+  .egg{font:inherit;font-size:.42em;font-weight:700;vertical-align:.75em;
+    margin-left:.3em;padding:0 1px 2px;background:none;border:0;
+    border-bottom:1px dotted var(--ink3);cursor:pointer;color:var(--ink3);
+    line-height:1;font-family:'Archivo Narrow',sans-serif;letter-spacing:.04em;
+    transition:color .15s ease,border-bottom-color .15s ease}
+  .egg:hover{color:var(--skog);border-bottom-color:var(--skog)}
+  .egg.on{color:var(--skog);border-bottom-color:transparent;cursor:default;
+    letter-spacing:.01em}
+  .egg:focus-visible{outline:2px solid var(--skog);outline-offset:2px}
   .chap-lede{font-family:Newsreader,Georgia,serif;font-size:18.5px;line-height:1.55;
     margin:0 0 0.7em;color:var(--ink2)}
   .chap-lede:first-of-type{color:var(--ink)}
@@ -2854,6 +2888,7 @@ export default function KausebolModel() {
             kicker={t.story.ch1kicker}
             title={t.story.ch1title}
             body={t.story.ch1body}
+            egg={t.story.ch1egg}
           />
           <Fold label={t.story.ch1more}>
             <div className="prose">
