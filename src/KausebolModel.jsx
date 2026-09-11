@@ -82,8 +82,9 @@ const T = {
       pnTitle: "Hva koster ett døgn på hytta?",
       pnLead: (n, y) =>
         n + " døgn i året i " + y + " år, altså " + (n * y) + " døgn til sammen.",
-      pnOneOff: "Engangs: den delen av kjøp og tiltak som ikke sitter i verdien",
-      pnRecurring: "Løpende: drift og vedlikehold i eiertiden",
+      pnOneOff: "Kjøp og omkostninger, minus det hytta er verdt",
+      pnWorks: "Oppussing vi ikke får igjen i verdi",
+      pnRecurring: "Drift og vedlikehold i eiertiden",
       pnSunk: "Sum, det hytta har kostet oss",
       pnPer: "per døgn",
       pnNote:
@@ -303,8 +304,9 @@ const T = {
       pnTitle: "What does one night at the cabin cost?",
       pnLead: (n, y) =>
         n + " nights a year for " + y + " years, so " + (n * y) + " nights in all.",
-      pnOneOff: "One-off: the part of purchase and works not held in the value",
-      pnRecurring: "Recurring: running and upkeep over the period",
+      pnOneOff: "Purchase and fees, less what the cabin is worth",
+      pnWorks: "Works we do not get back in value",
+      pnRecurring: "Running and upkeep over the period",
       pnSunk: "Total, what the cabin has cost us",
       pnPer: "per night",
       pnNote:
@@ -529,8 +531,9 @@ const T = {
       pnTitle: "Quanto costa una notte in baita?",
       pnLead: (n, y) =>
         n + " notti all'anno per " + y + " anni, quindi " + (n * y) + " notti in tutto.",
-      pnOneOff: "Una tantum: la parte di acquisto e interventi che non resta nel valore",
-      pnRecurring: "Ricorrenti: gestione e manutenzione nel periodo",
+      pnOneOff: "Acquisto e spese, meno quanto vale la baita",
+      pnWorks: "Lavori che non tornano in valore",
+      pnRecurring: "Gestione e manutenzione nel periodo",
       pnSunk: "Totale, quanto ci è costata la baita",
       pnPer: "a notte",
       pnNote:
@@ -1685,7 +1688,19 @@ export default function KausebolModel() {
      or firewood. Running costs are only part of that, so the split below
      shows the two halves separately. */
   const totalNights = nights * years;
-  const oneOff = price + fees + worksCost - value; /* capital not recovered */
+  /* Split the one-off part in two, because the interesting half is the
+     renovation loss: what the works cost minus what they put back into the
+     value. Each side is netted against the value it created, so the base
+     value answers for the purchase and the added value for the works.
+     Both are scaled by the same factor the ceiling cap applied to the whole,
+     so a capped value shrinks the two lines in proportion and they still
+     sum to the capital we do not get back. */
+  const valBase = 500 * growF;
+  const valWorks = active.reduce((sum, m) => sum + val(m), 0) * growF;
+  const capFactor = rawValue > 0 ? value / rawValue : 1; /* 1 unless capped */
+  const capitalGap = price + fees - valBase * capFactor;
+  const worksLoss = worksCost - valWorks * capFactor;
+  const oneOff = capitalGap + worksLoss; /* === price+fees+worksCost-value */
   const recurring = runIn;
   const sunk = oneOff + recurring; /* === -delta */
   const perNight = totalNights > 0 ? (sunk * 1000) / totalNights : 0;
@@ -2110,7 +2125,9 @@ export default function KausebolModel() {
   /* The question and the cost box are one panel, not two stacked cards:
      the ask is its header, and the figures continue below the same border. */
   .askwrap{margin:24px 0 0;border:1px solid var(--line);background:var(--card)}
-  .ask{padding:17px 18px}
+  .ask{display:block;padding:17px 18px;cursor:pointer;transition:background .12s ease}
+  .askwrap:not(.on) .ask:hover{background:var(--paper)}
+  .ask:has(input:focus-visible){outline:2px solid var(--skog);outline-offset:-2px}
   .askwrap.on .ask{border-bottom:1px solid var(--line)}
   .ask-q{margin:0 0 11px;font-family:Newsreader,Georgia,serif;font-size:18.5px;
     line-height:1.35;color:var(--ink)}
@@ -2295,11 +2312,15 @@ export default function KausebolModel() {
   .pn-head h3{margin:0 0 4px;font-size:17px;letter-spacing:-.005em;color:var(--ink)}
   .pn-lead{margin:0 0 14px;font-family:'Archivo Narrow',sans-serif;font-size:13px;
     color:var(--ink3)}
+  .pn-dial{margin:0 0 14px;padding:0 0 14px;border-bottom:1px solid var(--line)}
+  .pn-dial .dial{margin-bottom:0}
   .pn-rows{border-top:1px solid var(--line)}
   .pn-row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;
     border-bottom:1px solid var(--line);
     font-family:'Archivo Narrow',sans-serif;font-size:13.5px;
     font-variant-numeric:tabular-nums;color:var(--ink2)}
+  /* the label may wrap, the amount never: a broken figure is unreadable */
+  .pn-row > span:last-child{white-space:nowrap;flex-shrink:0}
   .pn-row.tot{border-bottom:0;border-top:1.5px solid var(--ink);
     margin-top:4px;padding-top:9px;font-weight:600;font-family:Archivo,sans-serif;
     color:var(--ink)}
@@ -2854,7 +2875,7 @@ export default function KausebolModel() {
                   note={t.yearsNote}
                   value={years}
                   min={1}
-                  max={20}
+                  max={50}
                   step={1}
                   onChange={setYears}
                   display={years + " " + t.yearsUnit}
@@ -3054,18 +3075,20 @@ export default function KausebolModel() {
             body={t.story.ch3body}
           />
           <div className={"askwrap" + (inclRun ? " on" : "")}>
-            <div className="ask">
+            {/* the whole card is the control, so the question itself is the
+                hit area rather than just the box next to the answer */}
+            <label className="ask">
               <p className="ask-q">{t.story.ch3ask}</p>
-              <label className="ask-opt">
+              <span className="ask-opt">
                 <input
                   type="checkbox"
                   checked={inclRun}
                   onChange={() => setInclRun(!inclRun)}
                 />
                 <span>{t.story.ch3askYes}</span>
-              </label>
+              </span>
               <p className="ask-note">{t.runIncludeNote}</p>
-            </div>
+            </label>
 
             {inclRun ? (
               <div className="runbox">
@@ -3209,13 +3232,34 @@ export default function KausebolModel() {
                   <h3>{t.story.pnTitle}</h3>
                   <p className="pn-lead">{t.story.pnLead(nights, years)}</p>
                 </div>
+                {/* the horizon again, here: it is the dial that moves this
+                    figure most, and it lives too far up the page to reach */}
+                <div className="pn-dial">
+                  <Slider
+                    label={t.years}
+                    value={years}
+                    min={1}
+                    max={50}
+                    step={1}
+                    onChange={setYears}
+                    display={years + " " + t.yearsUnit}
+                  />
+                </div>
                 <div className="pn-rows">
                   <div className="pn-row">
                     <span>{t.story.pnOneOff}</span>
                     <span>
-                      <Money v={oneOff * 1000} />
+                      <Money v={capitalGap * 1000} />
                     </span>
                   </div>
+                  {worksLoss > 0 ? (
+                    <div className="pn-row">
+                      <span>{t.story.pnWorks}</span>
+                      <span>
+                        <Money v={worksLoss * 1000} />
+                      </span>
+                    </div>
+                  ) : null}
                   <div className="pn-row">
                     <span>{t.story.pnRecurring}</span>
                     <span>
