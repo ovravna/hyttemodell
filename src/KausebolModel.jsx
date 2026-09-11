@@ -58,7 +58,7 @@ const T = {
     unfold: "Vis mer",
     story: {
       ch1kicker: "Kapittel 1",
-      ch1title: "Vi kan kjøpe en hytte fra 1969",
+      ch1title: "Tenk deg å eie en hytte fra 1969",
       ch1body: [
         {
           pre: "Prisantydningen er 500 000 kroner, altså mindre enn fire av ",
@@ -287,7 +287,7 @@ const T = {
     unfold: "Show more",
     story: {
       ch1kicker: "Chapter 1",
-      ch1title: "We could buy a cabin from 1969",
+      ch1title: "Imagine owning a cabin from 1969",
       ch1body: [
         {
           pre: "The asking price is NOK 500,000, which is less than four of ",
@@ -521,7 +521,7 @@ const T = {
     unfold: "Mostra più",
     story: {
       ch1kicker: "Capitolo 1",
-      ch1title: "Potremmo comprare una baita del 1969",
+      ch1title: "Immagina di avere una baita del 1969",
       ch1body: [
         {
           pre: "Il prezzo richiesto è 500.000 NOK, cioè meno di quattro ",
