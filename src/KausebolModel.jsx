@@ -60,7 +60,12 @@ const T = {
       ch1kicker: "Kapittel 1",
       ch1title: "Vi kan kjøpe en hytte fra 1969",
       ch1body: [
-        "Prisantydningen er 500 000 kroner. Med tinglysing og gebyrer er vi oppe i 513 850, før vi har gjort noe med hytta.",
+        {
+          pre: "Prisantydningen er 500 000 kroner, altså mindre enn fire av ",
+          link: "Kristoffer sin motorsykkel",
+          href: "https://www.finn.no/mobility/item/396444566",
+          post: ". Med tinglysing og gebyrer er vi oppe i 513 850, før vi har gjort noe med hytta.",
+        },
         "Kjøpesummen er den delen vi vet. Resten av siden handler om det som kommer etterpå.",
       ],
       ch1more: "Hvorfor prisen er så lav",
@@ -284,7 +289,12 @@ const T = {
       ch1kicker: "Chapter 1",
       ch1title: "We could buy a cabin from 1969",
       ch1body: [
-        "The asking price is NOK 500,000. With registration and fees we are at 513,850, before doing anything to the cabin.",
+        {
+          pre: "The asking price is NOK 500,000, which is less than four of ",
+          link: "Kristoffer's motorcycles",
+          href: "https://www.finn.no/mobility/item/396444566",
+          post: ". With registration and fees we are at 513,850, before doing anything to the cabin.",
+        },
         "The purchase is the part we know. The rest of this page is about what comes after.",
       ],
       ch1more: "Why the price is this low",
@@ -513,7 +523,12 @@ const T = {
       ch1kicker: "Capitolo 1",
       ch1title: "Potremmo comprare una baita del 1969",
       ch1body: [
-        "Il prezzo richiesto è 500.000 NOK. Con registrazione e diritti siamo a 513.850, prima di aver fatto qualsiasi cosa alla baita.",
+        {
+          pre: "Il prezzo richiesto è 500.000 NOK, cioè meno di quattro ",
+          link: "moto di Kristoffer",
+          href: "https://www.finn.no/mobility/item/396444566",
+          post: ". Con registrazione e diritti siamo a 513.850, prima di aver fatto qualsiasi cosa alla baita.",
+        },
         "L'acquisto è la parte che conosciamo. Il resto della pagina riguarda ciò che viene dopo.",
       ],
       ch1more: "Perché il prezzo è così basso",
@@ -1769,7 +1784,22 @@ export default function KausebolModel() {
       </h2>
       {body.map((p, i) => (
         <p className="chap-lede" key={i}>
-          {p}
+          {typeof p === "string" ? (
+            p
+          ) : (
+            <>
+              {p.pre}
+              <a
+                className="quiet"
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {p.link}
+              </a>
+              {p.post}
+            </>
+          )}
         </p>
       ))}
     </div>
@@ -2178,6 +2208,12 @@ export default function KausebolModel() {
   .chap-lede{font-family:Newsreader,Georgia,serif;font-size:18.5px;line-height:1.55;
     margin:0 0 0.7em;color:var(--ink2)}
   .chap-lede:first-of-type{color:var(--ink)}
+  /* keeps the sentence's colour; a dotted rule is the only mark, so the
+     joke does not turn into a blue link in the middle of the lede */
+  .chap-lede a.quiet{color:inherit;text-decoration:none;
+    border-bottom:1px dotted var(--ink3);transition:border-color .15s ease}
+  .chap-lede a.quiet:hover{border-bottom-color:var(--ink)}
+
   /* ---- the question that gates the running-cost box ---- */
   /* The question and the cost box are one panel, not two stacked cards:
      the ask is its header, and the figures continue below the same border. */
