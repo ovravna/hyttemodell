@@ -154,8 +154,9 @@ const T = {
     itPump: "Strøm til fellespumpa",
     itTravel: "Kjøring fra Oslo",
     travelOn: "Ta med kjøring",
-    travelNote: "110 km tur og retur, 3 kr per km, snitt 2,5 døgn per tur. Av som standard, siden det er forbruk som ikke påvirker hva hytta er verdt.",
-    runFoot: "Strøm er regnet med 1,50 kr per kWh inkludert nettleie og avgifter. Vedovnen kan ikke fyres med ved fra eiendommen: festekontraktens § 8 gir festeren ingen rett til ved på grunneiers mark. Fellespumpa er tatt med fordi trykktanken for ni hytter står under denne hytta, og pumpa får strøm herfra. Får du ikke det oppgjort med de åtte andre, betaler du den alene.",
+    travelNote:
+      "110 km tur og retur i liten dieselbil: 1,60 kr per km i drivstoff og slitasje, pluss 80 kr i bom for to passeringer av Oslo-ringen i rushtid. Snitt 2,5 døgn per tur. Av som standard, siden det er forbruk som ikke påvirker hva hytta er verdt.",
+    runFoot: "Strøm er regnet med 1,50 kr per kWh inkludert nettleie og avgifter. Vedovnen kan ikke fyres med ved fra eiendommen: festekontraktens § 8 gir festeren ingen rett til ved på grunneiers mark. Fellespumpa er tatt med fordi trykktanken for ni hytter står under denne hytta, og pumpa får strøm herfra. Får du ikke det oppgjort med de åtte andre, betaler du den alene. Forsikringen står som et anslag på 4 000, ikke et innhentet tilbud. Merk at flere selskaper ikke dekker selve bygningsskaden når takkonstruksjonen er over femti år, bare dokumentert opprydding.",
     maint: "Løpende vedlikehold",
     maintNote: "Anslaget følger tiltakene du velger. Utbedrer du tak, kledning, vinduer, veranda og drenering, faller vedlikeholdet mot 8 000 i året. Lar du det stå, betaler du i stedet for lapping år etter år.",
     maintAuto: "følger tiltakene",
@@ -239,6 +240,7 @@ const T = {
     running: "Løpende kostnader",
     runningItems: [
       ["Festeavgift", 2135],
+      ["Forsikring", 4000],
       ["Kommunale avgifter", 4037],
       ["Velavgift", 2800],
       ["Andel felles vann", 1000],
@@ -383,8 +385,9 @@ const T = {
     itPump: "Power for the shared pump",
     itTravel: "Driving from Oslo",
     travelOn: "Include driving",
-    travelNote: "110 km round trip, NOK 3 per km, averaging 2.5 nights per trip. Off by default, since it is consumption that does not affect what the cabin is worth.",
-    runFoot: "Electricity is costed at NOK 1.50 per kWh including grid charges and levies. The wood stove cannot be fed from the estate: clause 8 of the lease grants the leaseholder no right to firewood on the owner's land. The shared pump is included because the pressure tank for nine cabins sits under this cabin and the pump draws power from here. Fail to settle that with the other eight and you pay it alone.",
+    travelNote:
+      "110 km round trip in a small diesel: NOK 1.60 per km in fuel and wear, plus NOK 80 of toll for two passes of the Oslo ring at the rush-hour rate. Averaging 2.5 nights per trip. Off by default, since it is consumption that does not affect what the cabin is worth.",
+    runFoot: "Electricity is costed at NOK 1.50 per kWh including grid charges and levies. The wood stove cannot be fed from the estate: clause 8 of the lease grants the leaseholder no right to firewood on the owner's land. The shared pump is included because the pressure tank for nine cabins sits under this cabin and the pump draws power from here. Fail to settle that with the other eight and you pay it alone. The insurance is an estimate of 4,000, not a quote obtained. Note that several insurers do not cover damage to the building itself once the roof structure is over fifty years old, only documented clean-up.",
     maint: "Ongoing maintenance",
     maintNote: "The estimate follows the works you select. Fix the roof, cladding, windows, deck and drainage and maintenance falls towards 8,000 a year. Leave them and you pay for patching instead, year after year.",
     maintAuto: "follows the works",
@@ -468,6 +471,7 @@ const T = {
     running: "Recurring costs",
     runningItems: [
       ["Ground rent", 2135],
+      ["Insurance", 4000],
       ["Municipal charges", 4037],
       ["Cabin field association", 2800],
       ["Share of shared water", 1000],
@@ -617,8 +621,9 @@ const T = {
     itPump: "Corrente per la pompa comune",
     itTravel: "Viaggio da Oslo",
     travelOn: "Includi il viaggio",
-    travelNote: "110 km andata e ritorno, 3 NOK/km, in media 2,5 notti per viaggio. Disattivato di default, perché è consumo che non incide sul valore.",
-    runFoot: "L\u2019elettricità è calcolata a 1,50 NOK per kWh inclusi oneri di rete e imposte. La stufa non può essere alimentata con legna del fondo: l\u2019art. 8 del contratto non dà al concessionario alcun diritto alla legna. La pompa comune è inclusa perché il serbatoio in pressione per nove baite si trova sotto questa baita e la pompa prende corrente da qui. Se non ti accordi con gli altri otto, la paghi da solo.",
+    travelNote:
+      "110 km andata e ritorno con una piccola diesel: 1,60 NOK/km tra carburante e usura, più 80 NOK di pedaggio per due passaggi dell’anello di Oslo nell’ora di punta. In media 2,5 notti per viaggio. Disattivato di default, perché è consumo che non incide sul valore.",
+    runFoot: "L\u2019elettricità è calcolata a 1,50 NOK per kWh inclusi oneri di rete e imposte. La stufa non può essere alimentata con legna del fondo: l\u2019art. 8 del contratto non dà al concessionario alcun diritto alla legna. La pompa comune è inclusa perché il serbatoio in pressione per nove baite si trova sotto questa baita e la pompa prende corrente da qui. Se non ti accordi con gli altri otto, la paghi da solo. L’assicurazione è una stima di 4.000, non un preventivo. Nota che diverse compagnie non coprono il danno all’edificio quando la struttura del tetto ha più di cinquant’anni, ma solo lo sgombero documentato.",
     maint: "Manutenzione ricorrente",
     maintNote: "La stima segue gli interventi che selezioni. Sistema tetto, rivestimento, finestre, terrazza e drenaggio e la manutenzione scende verso 8.000 l\u2019anno. Se li lasci, paghi rattoppi anno dopo anno.",
     maintAuto: "segue gli interventi",
@@ -702,6 +707,7 @@ const T = {
     running: "Costi ricorrenti",
     runningItems: [
       ["Canone di concessione", 2135],
+      ["Assicurazione", 4000],
       ["Tributi comunali", 4037],
       ["Consorzio del comprensorio", 2800],
       ["Quota acqua comune", 1000],
@@ -1698,7 +1704,14 @@ export default function KausebolModel() {
   const cToilet = lerp(0.5, 3, usage);
   const cWood = lerp(0.8, 5, usage) * heatFactor;
   const cPump = lerp(0.6, 1.4, usage);
-  const cTravel = travel ? ((nights / 2.5) * 330) / 1000 : 0;
+  /* Per round trip, split so each part can be argued with on its own: a small
+     old diesel is cheap to run per km, but the Oslo ring is a flat cost that
+     a per-km rate hides. Two passes, diesel, AutoPASS, at the rush-hour rate. */
+  const KM_PER_TRIP = 110;
+  const KR_PER_KM = 1.6;
+  const TOLL_PER_TRIP = 80;
+  const trip = KM_PER_TRIP * KR_PER_KM + TOLL_PER_TRIP;
+  const cTravel = travel ? ((nights / 2.5) * trip) / 1000 : 0;
   const useCost = cPower + cToilet + cWood + cPump + cTravel;
 
   const perYear = fixedRun + useCost + maint;
