@@ -237,6 +237,8 @@ const T = {
     farmMeta: "208,1 dekar · 180 dekar skog · 0 dekar jordbruk",
     prospectLink: "Last ned salgsoppgaven",
     prospectMeta: "PDF · 9,5 MB",
+    compareLink: "Fem hytter vurdert mot hverandre",
+    compareMeta: "egen side",
     running: "Løpende kostnader",
     runningItems: [
       ["Festeavgift", 2135],
@@ -468,6 +470,8 @@ const T = {
     farmMeta: "208.1 units · 180 forest · 0 agricultural",
     prospectLink: "Download the sales prospectus",
     prospectMeta: "PDF · 9.5 MB",
+    compareLink: "Five cabins weighed against each other",
+    compareMeta: "separate page, in Norwegian",
     running: "Recurring costs",
     runningItems: [
       ["Ground rent", 2135],
@@ -704,6 +708,8 @@ const T = {
     farmMeta: "208,1 unità · 180 di bosco · 0 agricolo",
     prospectLink: "Scarica il fascicolo di vendita",
     prospectMeta: "PDF · 9,5 MB",
+    compareLink: "Cinque baite messe a confronto",
+    compareMeta: "pagina separata, in norvegese",
     running: "Costi ricorrenti",
     runningItems: [
       ["Canone di concessione", 2135],
@@ -2919,6 +2925,10 @@ export default function KausebolModel() {
               {t.prospectLink}
             </a>
             <span>{t.prospectMeta}</span>
+          </div>
+          <div className="maprow">
+            <a href={BASE + "hyttevalg.html"}>{t.compareLink}</a>
+            <span>{t.compareMeta}</span>
           </div>
           <div style={{ height: 24 }} />
         </div>
