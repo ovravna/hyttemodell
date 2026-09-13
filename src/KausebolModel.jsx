@@ -213,7 +213,7 @@ const T = {
       "Tilstandsrapporten oppgir hver post som et spenn, for eksempel 130 000 til 350 000 på taket. Denne skruen bestemmer hvor i spennet du regner. Helt til venstre bruker alle nedre anslag, helt til høyre alle øvre. Den flytter både kostnad og verdi.",
     priceNote: "Prisantydningen er 500 000. Skyv oppover for å teste et budscenario.",
     yearsNote:
-      "Punktet fram i tid vi sammenlikner verdien med. Ikke et salgstidspunkt — det bestemmer bare hvor mange år løpende kostnader som regnes inn.",
+      "Punktet fram i tid vi sammenlikner verdien med. Ikke et salgstidspunkt. Det bestemmer bare hvor mange år løpende kostnader som regnes inn.",
     prev: "Forrige bilde",
     next: "Neste bilde",
     diy: "Egeninnsats",
@@ -446,7 +446,7 @@ const T = {
       "The condition report gives every item as a range, for example 130,000 to 350,000 for the roof. This dial sets where in the range you budget. Far left uses every low estimate, far right every high one. It moves both cost and value.",
     priceNote: "The asking price is 500,000. Slide up to test a bidding scenario.",
     yearsNote:
-      "The point in time we compare the value at. Not a date to sell — it only sets how many years of recurring costs are counted in.",
+      "The point in time we compare the value at. Not a date to sell. It only sets how many years of recurring costs are counted in.",
     prev: "Previous photo",
     next: "Next photo",
     diy: "Own labour",

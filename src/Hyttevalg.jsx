@@ -24,135 +24,358 @@ const IMG = {
   svan: BASE + "img/hv-svan.webp",
 };
 
-const METRICS = [
-  ["vei", "Bilvei helt frem"],
-  ["strom", "Strøm"],
-  ["vann", "Vann"],
-  ["avlop", "Mulighet for avløp"],
-  ["tilstand", "Bygningstilstand"],
-  ["papirer", "Papirer og lovlighet"],
-  ["tomt", "Tomt"],
-  ["drift", "Lave løpende kostnader"],
-  ["vinter", "Vinterbruk"],
-  ["innflytting", "Kan brukes nå"],
-  ["oslo", "Nærhet til Oslo"],
+const METRIC_KEYS = [
+  "vei", "strom", "vann", "avlop", "tilstand", "papirer",
+  "tomt", "drift", "vinter", "innflytting", "oslo",
 ];
 
+/* Only what does not change with language. The words live in T. */
 const CABINS = [
-  {
-    id: "k19",
-    name: "Kausebøl 19",
-    place: "Spydeberg · 45 min fra Oslo",
-    price: 513850,
-    priceNote: "totalpris",
-    built: 1969,
-    area: "40 m²",
-    land: "110 m² festet",
-    m: { vei: 10, strom: 9, vann: 6, avlop: 5, tilstand: 3, papirer: 2, tomt: 3, drift: 8, vinter: 5, innflytting: 6, oslo: 9 },
-    asap: "Tak og takkonstruksjon med påvist råte, gitt strakstiltak. Deretter drenering.",
-    plus: [
-      "Den eneste med kjørevei helt frem og parkering ved hytta",
-      "Innlagt vann og strøm, terrasse på 38 m²",
-    ],
-    minus: [
-      "Fem byggetiltak uten godkjenning, ingen ferdigattest",
-      "Råte i bærende takkonstruksjon, anslag 130 til 350 000",
-    ],
-  },
-  {
-    id: "k40",
-    name: "Kausebøl 40",
-    place: "Spydeberg · 45 min fra Oslo",
-    price: 708900,
-    priceNote: "anslått totalpris",
-    built: 1977,
-    area: "45 m²",
-    land: "110 m² festet",
-    m: { vei: 2, strom: 9, vann: 3, avlop: 2, tilstand: 4, papirer: 6, tomt: 3, drift: 6, vinter: 2, innflytting: 7, oslo: 9 },
-    asap: "Beslag og tetting rundt pipa. Fuktskadene i bjelkelag og krypkjeller må undersøkes nærmere.",
-    plus: [
-      "Åtte år nyere, og kommunen sier manglende ferdigattest er uten praktisk betydning",
-      "Terrasse vendt mot syd, arealene er 3D-skannet",
-    ],
-    minus: [
-      "Ingen bilvei. Skogssti siste stykket, og vann bæres 50 meter om vinteren",
-      "Terreng av fjell som takstmannen sier ikke er økonomisk rasjonelt å drenere",
-    ],
-  },
-  {
-    id: "bros",
-    name: "Brøsholveien 229",
-    place: "Båstad, Trøgstad · 55 min fra Oslo",
-    price: 718850,
-    priceNote: "totalpris",
-    built: 1960,
-    area: "37 m² + 51 m² bod",
-    land: "682 m² eiet",
-    m: { vei: 4, strom: 8, vann: 4, avlop: 3, tilstand: 4, papirer: 6, tomt: 9, drift: 8, vinter: 3, innflytting: 6, oslo: 8 },
-    asap: "Skorsteinen er deformert og ustabil med fare for sammenbrudd. Ikke fyr før den er utbedret.",
-    plus: [
-      "682 m² selveiertomt. Ingen festeavgift, ingen grunneier",
-      "Utsikt over Øyeren, full kjeller og veranda på 31 m²",
-    ],
-    minus: [
-      "Sommervann fra kran i hytteveggen, snurredass i anneks",
-      "Takkonstruksjon med nedbøyning og råte i vinduer",
-    ],
-  },
-  {
-    id: "vael",
-    name: "Vælsveien 58",
-    place: "Hensmoen, Ringerike · 1 t 15 fra Oslo",
-    price: 411090,
-    priceNote: "totalpris",
-    built: 1965,
-    area: "44 m²",
-    land: "Festet",
-    m: { vei: 2, strom: 1, vann: 1, avlop: 2, tilstand: 4, papirer: 4, tomt: 2, drift: 2, vinter: 1, innflytting: 4, oslo: 4 },
-    asap: "Pipe og ildsted, elektrisk anlegg og branntekniske forhold har alle fått TG3.",
-    plus: [
-      "Lavest pris av de fem",
-      "Bygningen fremstår vedlikeholdt tross alderen",
-    ],
-    minus: [
-      "Ingen strøm. Festeavgiften er 9 520 i året, fire ganger de andre",
-      "Parkering og brønnrett hviler på en muntlig avtale som ikke er tinglyst",
-    ],
-  },
-  {
-    id: "svan",
-    name: "Svanfossvegen 311",
-    place: "Nes · 50 min fra Oslo",
-    price: 475000,
-    priceNote: "finn i dag, prospektet sa 334 125",
-    built: 1946,
-    area: "Rives",
-    land: "646 m² eiet",
-    m: { vei: 0, strom: 8, vann: 0, avlop: 1, tilstand: 0, papirer: 3, tomt: 9, drift: 9, vinter: 0, innflytting: 0, oslo: 8 },
-    rebuild: true,
-    asap: "Riving. Bygningen er vurdert som teknisk og helsemessig uegnet for videre bruk.",
-    plus: [
-      "646 m² selveiertomt ned mot Vorma, uten festeavgift",
-      "Strøm er allerede fremført til eiendommen",
-    ],
-    minus: [
-      "100 prosent fuktinnhold i treverket og 28 cm setning over seks meter",
-      "Tvangssalg, så avhendingsloven gjelder ikke og du har nesten ingen rettigheter",
-    ],
-  },
+  { id: "k19", name: "Kausebøl 19", price: 513850, built: 1969,
+    m: { vei: 10, strom: 9, vann: 6, avlop: 5, tilstand: 3, papirer: 2, tomt: 3, drift: 8, vinter: 5, innflytting: 6, oslo: 9 } },
+  { id: "k40", name: "Kausebøl 40", price: 708900, built: 1977,
+    m: { vei: 2, strom: 9, vann: 3, avlop: 2, tilstand: 4, papirer: 6, tomt: 3, drift: 6, vinter: 2, innflytting: 7, oslo: 9 } },
+  { id: "bros", name: "Brøsholveien 229", price: 718850, built: 1960,
+    m: { vei: 4, strom: 8, vann: 4, avlop: 3, tilstand: 4, papirer: 6, tomt: 9, drift: 8, vinter: 3, innflytting: 6, oslo: 8 } },
+  { id: "vael", name: "Vælsveien 58", price: 411090, built: 1965,
+    m: { vei: 2, strom: 1, vann: 1, avlop: 2, tilstand: 4, papirer: 4, tomt: 2, drift: 2, vinter: 1, innflytting: 4, oslo: 4 } },
+  { id: "svan", name: "Svanfossvegen 311", price: 475000, built: 1946, rebuild: true,
+    m: { vei: 0, strom: 8, vann: 0, avlop: 1, tilstand: 0, papirer: 3, tomt: 9, drift: 9, vinter: 0, innflytting: 0, oslo: 8 } },
 ];
 
 /* Each question raises the weight of the metrics it touches. */
 const QUESTIONS = [
-  { id: "q1", text: "Må du kunne kjøre helt frem til døra?", hits: { vei: 3 } },
-  { id: "q2", text: "Skal hytta brukes om vinteren?", hits: { vinter: 3, strom: 1 } },
-  { id: "q3", text: "Vil du eie tomta selv?", hits: { tomt: 3, drift: 1 } },
-  { id: "q4", text: "Er du åpen for å rive og bygge nytt?", gate: "svan", hits: {} },
-  { id: "q5", text: "Må du ha vannklosett på sikt?", hits: { avlop: 3, vann: 1 } },
-  { id: "q6", text: "Vil du kunne bruke hytta med en gang?", hits: { innflytting: 2, tilstand: 2 } },
-  { id: "q7", text: "Gjør dere mye av arbeidet selv?", damp: true, hits: {} },
-  { id: "q8", text: "Er lave løpende kostnader viktig?", hits: { drift: 3 } },
+  { id: "q1", hits: { vei: 3 } },
+  { id: "q2", hits: { vinter: 3, strom: 1 } },
+  { id: "q3", hits: { tomt: 3, drift: 1 } },
+  { id: "q4", gate: "svan", hits: {} },
+  { id: "q5", hits: { avlop: 3, vann: 1 } },
+  { id: "q6", hits: { innflytting: 2, tilstand: 2 } },
+  { id: "q7", damp: true, hits: {} },
+  { id: "q8", hits: { drift: 3 } },
 ];
+
+/* ---------------------------- copy -------------------------------- */
+
+const T = {
+  no: {
+    lang: "Norsk",
+    title: "Hvilken hytte?",
+    lede: "Fem fritidseiendommer, vurdert på elleve punkter hentet fra salgsoppgavene. Svar på spørsmålene, så vektes punktene etter hva du bryr deg om.",
+    back: "Tilbake til regnestykket for Kausebøl 19",
+    qHead: "Hva er viktig for deg?",
+    answeredNote: (a, n) => `${a} av ${n} besvart. Ubesvarte teller nøytralt.`,
+    qNum: (i, n) => `Spørsmål ${i} av ${n}`,
+    yes: "Ja",
+    no: "Nei",
+    budgetQ: "Hva er budsjettet?",
+    budgetHead: "Maks totalpris",
+    showResult: "Vis resultatet",
+    doneNote:
+      "Rangeringen under er vektet etter svarene dine. Gå gjerne tilbake og endre et svar, eller juster budsjettet.",
+    prev: "Forrige",
+    showAll: "Vis alle svarene",
+    backToQ: "Tilbake til spørsmålene",
+    reset: "Nullstill",
+    pickHead: "Da peker det hit",
+    pickNote: "Basert på svarene dine, ikke på hva jeg mener om hyttene.",
+    bestMatch: "Best treff",
+    fixFirst: "Må fikses først",
+    aheadOf: (n, name) => `${n} poeng foran ${name}.`,
+    rankHead: "Rangering",
+    rankNote: "Trykk på en rad for styrker og svakheter.",
+    strengths: "Styrker",
+    weaknesses: "Svakheter",
+    builtYear: "Byggeår",
+    allNumbers: "Alle tall",
+    scaleNote:
+      "Skala 0 til 10. Grønt tall bak punktet er vekten svarene dine ga det.",
+    overBudget: "Over budsjettet ditt",
+    needsRebuild: "Krever at du river og bygger nytt",
+    currency: "kr",
+    metrics: {
+      vei: "Bilvei helt frem", strom: "Strøm", vann: "Vann",
+      avlop: "Mulighet for avløp", tilstand: "Bygningstilstand",
+      papirer: "Papirer og lovlighet", tomt: "Tomt",
+      drift: "Lave løpende kostnader", vinter: "Vinterbruk",
+      innflytting: "Kan brukes nå", oslo: "Nærhet til Oslo",
+    },
+    questions: {
+      q1: "Må du kunne kjøre helt frem til døra?",
+      q2: "Skal hytta brukes om vinteren?",
+      q3: "Vil du eie tomta selv?",
+      q4: "Er du åpen for å rive og bygge nytt?",
+      q5: "Må du ha vannklosett på sikt?",
+      q6: "Vil du kunne bruke hytta med en gang?",
+      q7: "Gjør dere mye av arbeidet selv?",
+      q8: "Er lave løpende kostnader viktig?",
+    },
+    cabins: {
+      k19: {
+        place: "Spydeberg · 45 min fra Oslo", priceNote: "totalpris",
+        area: "40 m²", land: "110 m² festet",
+        asap: "Tak og takkonstruksjon med påvist råte, gitt strakstiltak. Deretter drenering.",
+        plus: ["Den eneste med kjørevei helt frem og parkering ved hytta",
+               "Innlagt vann og strøm, terrasse på 38 m²"],
+        minus: ["Fem byggetiltak uten godkjenning, ingen ferdigattest",
+                "Råte i bærende takkonstruksjon, anslag 130 til 350 000"],
+      },
+      k40: {
+        place: "Spydeberg · 45 min fra Oslo", priceNote: "anslått totalpris",
+        area: "45 m²", land: "110 m² festet",
+        asap: "Beslag og tetting rundt pipa. Fuktskadene i bjelkelag og krypkjeller må undersøkes nærmere.",
+        plus: ["Åtte år nyere, og kommunen sier manglende ferdigattest er uten praktisk betydning",
+               "Terrasse vendt mot syd, arealene er 3D-skannet"],
+        minus: ["Ingen bilvei. Skogssti siste stykket, og vann bæres 50 meter om vinteren",
+                "Terreng av fjell som takstmannen sier ikke er økonomisk rasjonelt å drenere"],
+      },
+      bros: {
+        place: "Båstad, Trøgstad · 55 min fra Oslo", priceNote: "totalpris",
+        area: "37 m² + 51 m² bod", land: "682 m² eiet",
+        asap: "Skorsteinen er deformert og ustabil med fare for sammenbrudd. Ikke fyr før den er utbedret.",
+        plus: ["682 m² selveiertomt. Ingen festeavgift, ingen grunneier",
+               "Utsikt over Øyeren, full kjeller og veranda på 31 m²"],
+        minus: ["Sommervann fra kran i hytteveggen, snurredass i anneks",
+                "Takkonstruksjon med nedbøyning og råte i vinduer"],
+      },
+      vael: {
+        place: "Hensmoen, Ringerike · 1 t 15 fra Oslo", priceNote: "totalpris",
+        area: "44 m²", land: "Festet",
+        asap: "Pipe og ildsted, elektrisk anlegg og branntekniske forhold har alle fått TG3.",
+        plus: ["Lavest pris av de fem",
+               "Bygningen fremstår vedlikeholdt tross alderen"],
+        minus: ["Ingen strøm. Festeavgiften er 9 520 i året, fire ganger de andre",
+                "Parkering og brønnrett hviler på en muntlig avtale som ikke er tinglyst"],
+      },
+      svan: {
+        place: "Nes · 50 min fra Oslo", priceNote: "finn i dag, prospektet sa 334 125",
+        area: "Rives", land: "646 m² eiet",
+        asap: "Riving. Bygningen er vurdert som teknisk og helsemessig uegnet for videre bruk.",
+        plus: ["646 m² selveiertomt ned mot Vorma, uten festeavgift",
+               "Strøm er allerede fremført til eiendommen"],
+        minus: ["100 prosent fuktinnhold i treverket og 28 cm setning over seks meter",
+                "Tvangssalg, så avhendingsloven gjelder ikke og du har nesten ingen rettigheter"],
+      },
+    },
+    notes: [
+      "Poengene er mine vurderinger av opplysningene i salgsoppgavene, ikke objektive mål. Tilstandstallene bygger på tilstandsrapportenes tilstandsgrader, avløpstallene på hva kommunen og terrenget tillater.",
+      "Svanfossvegen 311 er et tvangssalg. Avhendingsloven gjelder ikke, og prisen på finn er høyere enn i prospektet fra 3. august.",
+      "Kausebøl 40 mangler oppgitte omkostninger i prospektet, så totalprisen er anslått. Jeg er ikke takstmann.",
+    ],
+  },
+  en: {
+    lang: "English",
+    title: "Which cabin?",
+    lede: "Five holiday properties, judged on eleven points taken from the sales prospectuses. Answer the questions and the points are weighted by what you care about.",
+    back: "Back to the figures for Kausebøl 19",
+    qHead: "What matters to you?",
+    answeredNote: (a, n) => `${a} of ${n} answered. Unanswered count as neutral.`,
+    qNum: (i, n) => `Question ${i} of ${n}`,
+    yes: "Yes",
+    no: "No",
+    budgetQ: "What is the budget?",
+    budgetHead: "Maximum total price",
+    showResult: "Show the result",
+    doneNote:
+      "The ranking below is weighted by your answers. Go back and change one, or move the budget.",
+    prev: "Back",
+    showAll: "Show every answer",
+    backToQ: "Back to the questions",
+    reset: "Reset",
+    pickHead: "Then it points here",
+    pickNote: "Based on your answers, not on what I think of the cabins.",
+    bestMatch: "Best match",
+    fixFirst: "Fix this first",
+    aheadOf: (n, name) => `${n} points ahead of ${name}.`,
+    rankHead: "Ranking",
+    rankNote: "Tap a row for strengths and weaknesses.",
+    strengths: "Strengths",
+    weaknesses: "Weaknesses",
+    builtYear: "Built",
+    allNumbers: "Every number",
+    scaleNote:
+      "Scale 0 to 10. The green figure after a point is the weight your answers gave it.",
+    overBudget: "Over your budget",
+    needsRebuild: "Requires demolishing and building new",
+    currency: "NOK",
+    metrics: {
+      vei: "Road to the door", strom: "Electricity", vann: "Water",
+      avlop: "Wastewater possible", tilstand: "Building condition",
+      papirer: "Paperwork and legality", tomt: "The plot",
+      drift: "Low running costs", vinter: "Winter use",
+      innflytting: "Usable now", oslo: "Closeness to Oslo",
+    },
+    questions: {
+      q1: "Must you be able to drive right to the door?",
+      q2: "Will the cabin be used in winter?",
+      q3: "Do you want to own the plot yourself?",
+      q4: "Are you open to demolishing and building new?",
+      q5: "Do you need a flushing toilet eventually?",
+      q6: "Do you want to use the cabin straight away?",
+      q7: "Will you do much of the work yourselves?",
+      q8: "Are low running costs important?",
+    },
+    cabins: {
+      k19: {
+        place: "Spydeberg · 45 min from Oslo", priceNote: "total price",
+        area: "40 m²", land: "110 m² leasehold",
+        asap: "Roof and roof structure with confirmed rot, flagged for immediate work. Drainage after that.",
+        plus: ["The only one with a road to the door and parking at the cabin",
+               "Plumbed water and electricity, a 38 m² deck"],
+        minus: ["Five building works without approval, no completion certificate",
+                "Rot in the load-bearing roof structure, estimated 130,000 to 350,000"],
+      },
+      k40: {
+        place: "Spydeberg · 45 min from Oslo", priceNote: "estimated total price",
+        area: "45 m²", land: "110 m² leasehold",
+        asap: "Flashing and sealing around the chimney. The damp in the joists and crawl space needs a closer look.",
+        plus: ["Eight years newer, and the municipality says the missing completion certificate has no practical effect",
+               "South-facing deck, and the areas have been 3D scanned"],
+        minus: ["No road. A forest path for the last stretch, and water carried 50 metres in winter",
+                "Rock terrain that the surveyor says is not economically sensible to drain"],
+      },
+      bros: {
+        place: "Båstad, Trøgstad · 55 min from Oslo", priceNote: "total price",
+        area: "37 m² + 51 m² shed", land: "682 m² freehold",
+        asap: "The chimney is deformed and unstable with a risk of collapse. Do not light it before it is repaired.",
+        plus: ["682 m² freehold plot. No ground rent, no freeholder",
+               "A view over Øyeren, a full cellar and a 31 m² veranda"],
+        minus: ["Summer water from a tap in the cabin wall, a composting toilet in the annex",
+                "A sagging roof structure and rot in the windows"],
+      },
+      vael: {
+        place: "Hensmoen, Ringerike · 1 h 15 from Oslo", priceNote: "total price",
+        area: "44 m²", land: "Leasehold",
+        asap: "Chimney and fireplace, the electrical system and the fire safety measures have all been given TG3.",
+        plus: ["The lowest price of the five",
+               "The building looks maintained despite its age"],
+        minus: ["No electricity. Ground rent is 9,520 a year, four times the others",
+                "Parking and well rights rest on a verbal agreement that is not registered"],
+      },
+      svan: {
+        place: "Nes · 50 min from Oslo", priceNote: "on finn today, the prospectus said 334,125",
+        area: "To be demolished", land: "646 m² freehold",
+        asap: "Demolition. The building has been judged technically and medically unfit for further use.",
+        plus: ["646 m² freehold plot running down to the Vorma, with no ground rent",
+               "Electricity has already been brought to the property"],
+        minus: ["100 per cent moisture in the timber and 28 cm of settlement over six metres",
+                "A forced sale, so the Alienation Act does not apply and you have almost no rights"],
+      },
+    },
+    notes: [
+      "The scores are my reading of what the sales prospectuses say, not objective measures. The condition figures follow the condition grades in the surveys, the wastewater figures follow what the municipality and the terrain allow.",
+      "Svanfossvegen 311 is a forced sale. The Alienation Act does not apply, and the price on finn is higher than in the prospectus of 3 August.",
+      "Kausebøl 40 gives no purchase costs in its prospectus, so the total price is an estimate. I am not a surveyor.",
+    ],
+  },
+  it: {
+    lang: "Italiano",
+    title: "Quale baita?",
+    lede: "Cinque immobili per vacanze, valutati su undici punti presi dai fascicoli di vendita. Rispondi alle domande e i punti vengono pesati secondo ciò che ti interessa.",
+    back: "Torna ai conti per Kausebøl 19",
+    qHead: "Cosa conta per te?",
+    answeredNote: (a, n) => `${a} di ${n} risposte. Le domande senza risposta contano come neutre.`,
+    qNum: (i, n) => `Domanda ${i} di ${n}`,
+    yes: "Sì",
+    no: "No",
+    budgetQ: "Qual è il budget?",
+    budgetHead: "Prezzo totale massimo",
+    showResult: "Mostra il risultato",
+    doneNote:
+      "La classifica qui sotto è pesata secondo le tue risposte. Torna indietro e cambiane una, o sposta il budget.",
+    prev: "Indietro",
+    showAll: "Mostra tutte le risposte",
+    backToQ: "Torna alle domande",
+    reset: "Azzera",
+    pickHead: "Allora punta qui",
+    pickNote: "In base alle tue risposte, non a cosa penso io delle baite.",
+    bestMatch: "Miglior corrispondenza",
+    fixFirst: "Da sistemare per primo",
+    aheadOf: (n, name) => `${n} punti davanti a ${name}.`,
+    rankHead: "Classifica",
+    rankNote: "Tocca una riga per punti di forza e debolezze.",
+    strengths: "Punti di forza",
+    weaknesses: "Debolezze",
+    builtYear: "Anno",
+    allNumbers: "Tutti i numeri",
+    scaleNote:
+      "Scala da 0 a 10. Il numero verde dopo un punto è il peso che le tue risposte gli hanno dato.",
+    overBudget: "Oltre il tuo budget",
+    needsRebuild: "Richiede di demolire e ricostruire",
+    currency: "NOK",
+    metrics: {
+      vei: "Strada fino alla porta", strom: "Elettricità", vann: "Acqua",
+      avlop: "Scarico possibile", tilstand: "Stato dell’edificio",
+      papirer: "Documenti e conformità", tomt: "Il terreno",
+      drift: "Costi correnti bassi", vinter: "Uso invernale",
+      innflytting: "Utilizzabile subito", oslo: "Vicinanza a Oslo",
+    },
+    questions: {
+      q1: "Devi poter arrivare in auto fino alla porta?",
+      q2: "La baita sarà usata d’inverno?",
+      q3: "Vuoi possedere il terreno?",
+      q4: "Sei disposto a demolire e ricostruire?",
+      q5: "Ti serve un WC con scarico in prospettiva?",
+      q6: "Vuoi poter usare la baita subito?",
+      q7: "Farete molto lavoro da soli?",
+      q8: "Sono importanti costi correnti bassi?",
+    },
+    cabins: {
+      k19: {
+        place: "Spydeberg · 45 min da Oslo", priceNote: "prezzo totale",
+        area: "40 m²", land: "110 m² in concessione",
+        asap: "Tetto e struttura del tetto con marciume accertato, con intervento immediato. Poi il drenaggio.",
+        plus: ["L’unica con strada fino alla porta e parcheggio alla baita",
+               "Acqua e corrente allacciate, terrazza di 38 m²"],
+        minus: ["Cinque interventi edilizi senza autorizzazione, nessun certificato di agibilità",
+                "Marciume nella struttura portante del tetto, stima da 130.000 a 350.000"],
+      },
+      k40: {
+        place: "Spydeberg · 45 min da Oslo", priceNote: "prezzo totale stimato",
+        area: "45 m²", land: "110 m² in concessione",
+        asap: "Scossaline e sigillatura attorno alla canna fumaria. I danni da umidità nei travetti e nel vespaio vanno approfonditi.",
+        plus: ["Otto anni più recente, e il comune dice che il certificato mancante non ha effetti pratici",
+               "Terrazza esposta a sud, superfici scansionate in 3D"],
+        minus: ["Nessuna strada. Sentiero nel bosco nell’ultimo tratto, e d’inverno l’acqua si porta per 50 metri",
+                "Terreno roccioso che il perito dice non sia economicamente sensato drenare"],
+      },
+      bros: {
+        place: "Båstad, Trøgstad · 55 min da Oslo", priceNote: "prezzo totale",
+        area: "37 m² + 51 m² ripostiglio", land: "682 m² di proprietà",
+        asap: "La canna fumaria è deformata e instabile, con rischio di crollo. Non accendere prima della riparazione.",
+        plus: ["Terreno di proprietà di 682 m². Nessun canone, nessun concedente",
+               "Vista sull’Øyeren, cantina completa e veranda di 31 m²"],
+        minus: ["Acqua estiva da un rubinetto nel muro, WC a secco nell’annesso",
+                "Struttura del tetto inflessa e marciume nelle finestre"],
+      },
+      vael: {
+        place: "Hensmoen, Ringerike · 1 h 15 da Oslo", priceNote: "prezzo totale",
+        area: "44 m²", land: "In concessione",
+        asap: "Canna fumaria e focolare, impianto elettrico e sicurezza antincendio hanno tutti ricevuto TG3.",
+        plus: ["Il prezzo più basso dei cinque",
+               "L’edificio appare curato nonostante l’età"],
+        minus: ["Niente elettricità. Il canone è di 9.520 all’anno, quattro volte gli altri",
+                "Parcheggio e diritto al pozzo poggiano su un accordo verbale non trascritto"],
+      },
+      svan: {
+        place: "Nes · 50 min da Oslo", priceNote: "su finn oggi, il fascicolo diceva 334.125",
+        area: "Da demolire", land: "646 m² di proprietà",
+        asap: "Demolizione. L’edificio è giudicato inadatto all’uso sul piano tecnico e sanitario.",
+        plus: ["Terreno di proprietà di 646 m² fino alla Vorma, senza canone",
+               "La corrente è già portata fino alla proprietà"],
+        minus: ["100 per cento di umidità nel legno e 28 cm di cedimento su sei metri",
+                "Vendita forzata: la legge sulle compravendite non si applica e non hai quasi diritti"],
+      },
+    },
+    notes: [
+      "I punteggi sono la mia lettura di quanto dicono i fascicoli di vendita, non misure oggettive. I valori sullo stato seguono i gradi delle perizie, quelli sullo scarico ciò che il comune e il terreno consentono.",
+      "Svanfossvegen 311 è una vendita forzata. La legge sulle compravendite non si applica, e il prezzo su finn è più alto di quello del fascicolo del 3 agosto.",
+      "Kausebøl 40 non indica gli oneri nel fascicolo, quindi il prezzo totale è una stima. Non sono un perito.",
+    ],
+  },
+};
+
+const DEFAULT_LANG = "no";
 
 const fmt = (n) =>
   Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u2009");
@@ -181,6 +404,8 @@ function Num({ v }) {
 }
 
 export default function Hyttevalg() {
+  const [lang, setLang] = useState(DEFAULT_LANG);
+  const t = T[lang];
   const [ans, setAns] = useState({});
   const [step, setStep] = useState(0);
   const [showAll, setShowAll] = useState(false);
@@ -192,7 +417,7 @@ export default function Hyttevalg() {
 
   const weights = useMemo(() => {
     const w = {};
-    METRICS.forEach(([k]) => (w[k] = 1));
+    METRIC_KEYS.forEach((k) => (w[k] = 1));
     for (const q of QUESTIONS) {
       if (ans[q.id] !== "ja") continue;
       for (const [k, v] of Object.entries(q.hits)) w[k] += v;
@@ -206,24 +431,23 @@ export default function Hyttevalg() {
 
   const ranked = useMemo(() => {
     return CABINS.map((c) => {
-      const raw = METRICS.reduce((s, [k]) => s + weights[k] * c.m[k], 0) / wSum;
+      const raw = METRIC_KEYS.reduce((s, k) => s + weights[k] * c.m[k], 0) / wSum;
       const overBudget = c.price > budget * 1000;
-      const gated = c.rebuild && ans.q4 === "nei";
+      /* Boolean, not undefined: cabins without a rebuild flag used to get
+         undefined here, and the sort below compares out with !==, so every
+         pair looked different and the comparator always answered "a first". */
+      const gated = c.rebuild === true && ans.q4 === "nei";
       return {
         ...c,
         score: raw,
         out: overBudget || gated,
-        why: overBudget
-          ? "Over budsjettet ditt"
-          : gated
-          ? "Krever at du river og bygger nytt"
-          : null,
+        why: overBudget ? t.overBudget : gated ? t.needsRebuild : null,
       };
     }).sort((a, b) => {
       if (a.out !== b.out) return a.out ? 1 : -1;
       return b.score - a.score;
     });
-  }, [weights, wSum, budget, ans]);
+  }, [weights, wSum, budget, ans, t]);
 
   const winner = ranked.find((c) => !c.out);
   const runnerUp = ranked.filter((c) => !c.out)[1];
@@ -236,11 +460,11 @@ export default function Hyttevalg() {
   /* the three weighted strengths that carried the winner */
   const drivers = useMemo(() => {
     if (!winner) return [];
-    return METRICS.map(([k, label]) => ({ k, label, v: winner.m[k] * weights[k] }))
+    return METRIC_KEYS.map((k) => ({ k, label: t.metrics[k], v: winner.m[k] * weights[k] }))
       .filter((x) => winner.m[x.k] >= 6 && weights[x.k] > 1)
       .sort((a, b) => b.v - a.v)
       .slice(0, 3);
-  }, [winner, weights]);
+  }, [winner, weights, t]);
 
   /* rows glide to their new place instead of snapping */
   const listRef = useRef(null);
@@ -289,6 +513,14 @@ export default function Hyttevalg() {
 
   .top{border-bottom:2px solid var(--ink);padding:34px 0 22px}
   .hv h1{font-size:clamp(27px,5.4vw,42px);line-height:1.02}
+  .tophead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .langsel{display:inline-flex;align-items:center;gap:1px;flex-shrink:0;
+    border:1px solid var(--line);background:var(--card);padding:5px 8px 5px 10px}
+  .langsel select{appearance:none;-webkit-appearance:none;background:none;border:0;
+    font:inherit;font-family:'Archivo Narrow',sans-serif;font-size:12.5px;
+    color:var(--ink);cursor:pointer;padding:0 2px 0 0}
+  .langsel option{color:#16221B;background:#fff}
+  .langsel svg{pointer-events:none;flex-shrink:0;opacity:.55}
   .backlink{margin:14px 0 0;font-family:'Archivo Narrow',sans-serif;font-size:13px}
   .backlink a{color:var(--ink);text-decoration:none;
     border-bottom:1.5px solid var(--skog);padding-bottom:1px}
@@ -410,7 +642,11 @@ export default function Hyttevalg() {
     border-top:1px solid var(--line);padding-top:10px}
 
   /* matrix */
-  .mx{width:100%;border-collapse:collapse;font-size:13px}
+  /* Eleven rows by five cabins does not fit a phone. Scroll the matrix
+     inside its own box: letting it size the page means the whole layout
+     scrolls sideways into empty margin. */
+  .mxwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mx{width:100%;min-width:500px;border-collapse:collapse;font-size:13px}
   .mx th{font-family:'Archivo Narrow',sans-serif;font-size:11.5px;font-weight:400;
     color:var(--ink3);text-align:center;padding:0 4px 7px;vertical-align:bottom}
   .mx th:first-child{text-align:left}
@@ -452,31 +688,41 @@ export default function Hyttevalg() {
 
       <header className="top">
         <div className="wrap">
-          <h1>Hvilken hytte?</h1>
-          <p className="lede">
-            Fem fritidseiendommer, vurdert på elleve punkter hentet fra
-            salgsoppgavene. Svar på spørsmålene, så vektes punktene etter hva du
-            faktisk bryr deg om, og rangeringen flytter seg.
-          </p>
+          <div className="tophead">
+            <h1>{t.title}</h1>
+            <div className="langsel">
+              <select
+                value={lang}
+                onChange={(e) => setLang(e.target.value)}
+                aria-label="Language"
+              >
+                {["no", "en", "it"].map((l) => (
+                  <option key={l} value={l}>
+                    {T[l].lang}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown size={13} />
+            </div>
+          </div>
+          <p className="lede">{t.lede}</p>
           <p className="backlink">
-            <a href={BASE}>Tilbake til regnestykket for Kausebøl 19</a>
+            <a href={BASE}>{t.back}</a>
           </p>
         </div>
       </header>
 
       <div className="wrap">
         <section className="sec">
-          <h2>Hva er viktig for deg?</h2>
-          <p className="hint">
-            {answered} av {QUESTIONS.length} besvart. Ubesvarte teller nøytralt.
-          </p>
+          <h2>{t.qHead}</h2>
+          <p className="hint">{t.answeredNote(answered, QUESTIONS.length)}</p>
 
           {showAll ? (
             <>
               <div className="qs">
                 {QUESTIONS.map((qq) => (
                   <div className="q" key={qq.id}>
-                    <span className="qt">{qq.text}</span>
+                    <span className="qt">{t.questions[qq.id]}</span>
                     <span className="opts">
                       {["ja", "nei"].map((v) => (
                         <button
@@ -498,8 +744,8 @@ export default function Hyttevalg() {
               </div>
               <label className="dial">
                 <span className="dhead">
-                  <b>Maks totalpris</b>
-                  <span>{fmt(budget * 1000)} kr</span>
+                  <b>{t.budgetHead}</b>
+                  <span>{fmt(budget * 1000)} {t.currency}</span>
                 </span>
                 <input
                   type="range"
@@ -512,7 +758,7 @@ export default function Hyttevalg() {
               </label>
               <div className="qnav">
                 <button className="lnk" onClick={() => { setShowAll(false); setStep(DONE); }}>
-                  Tilbake til spørsmålene
+                  {t.backToQ}
                 </button>
                 <button
                   className="lnk"
@@ -522,7 +768,7 @@ export default function Hyttevalg() {
                   }}
                 >
                   <RotateCcw size={13} />
-                  Nullstill
+                  {t.reset}
                 </button>
               </div>
             </>
@@ -541,35 +787,32 @@ export default function Hyttevalg() {
 
               {step < QUESTIONS.length ? (
                 <>
-                  <div className="qnum">
-                    Spørsmål {step + 1} av {QUESTIONS.length}
-                  </div>
-                  <div className="qbig">{q.text}</div>
+                  <div className="qnum">{t.qNum(step + 1, QUESTIONS.length)}</div>
+                  <div className="qbig">{t.questions[q.id]}</div>
                   <div className={"yn" + (picked ? " locked" : "")}>
                     <button
                       className={picked === "ja" ? "picked" : ""}
                       onClick={(e) => { e.currentTarget.blur(); answer(q, "ja"); }}
                     >
                       <Check size={17} />
-                      Ja
+                      {t.yes}
                     </button>
                     <button
                       className={picked === "nei" ? "picked" : ""}
                       onClick={(e) => { e.currentTarget.blur(); answer(q, "nei"); }}
                     >
                       <X size={17} />
-                      Nei
+                      {t.no}
                     </button>
                   </div>
                 </>
               ) : step === BUDGET_STEP ? (
                 <>
-                  <div className="qnum">Til slutt</div>
-                  <div className="qbig">Hva er budsjettet?</div>
+                  <div className="qbig">{t.budgetQ}</div>
                   <label className="dial" style={{ margin: 0 }}>
                     <span className="dhead">
-                      <b>Maks totalpris</b>
-                      <span>{fmt(budget * 1000)} kr</span>
+                      <b>{t.budgetHead}</b>
+                      <span>{fmt(budget * 1000)} {t.currency}</span>
                     </span>
                     <input
                       type="range"
@@ -582,16 +825,12 @@ export default function Hyttevalg() {
                   </label>
                   <div className="yn" style={{ marginTop: 16 }}>
                     <button onClick={(e) => { e.currentTarget.blur(); setStep(DONE); }}>
-                      Vis resultatet
+                      {t.showResult}
                     </button>
                   </div>
                 </>
               ) : (
-                <div className="qdone">
-                  <b>Ferdig.</b>
-                  Rangeringen under er vektet etter svarene dine. Gå gjerne
-                  tilbake og endre et svar, eller juster budsjettet.
-                </div>
+                <div className="qdone">{t.doneNote}</div>
               )}
 
               <div className="qnav">
@@ -603,7 +842,7 @@ export default function Hyttevalg() {
                   Forrige
                 </button>
                 <button className="lnk" onClick={() => setShowAll(true)}>
-                  Vis alle svarene
+                  {t.showAll}
                 </button>
               </div>
             </div>
@@ -613,19 +852,18 @@ export default function Hyttevalg() {
 
         {revealed && winner ? (
           <section className="sec">
-            <h2>Da peker det hit</h2>
-            <p className="hint">
-              Basert på svarene dine, ikke på hva jeg mener om hyttene.
-            </p>
+            <h2>{t.pickHead}</h2>
+            <p className="hint">{t.pickNote}</p>
             <div className="win">
               <div className="win-grid">
                 <img src={IMG[winner.id]} alt={winner.name} />
                 <div className="win-body">
-                  <div className="win-tag">Best treff</div>
+                  <div className="win-tag">{t.bestMatch}</div>
                   <h3>{winner.name}</h3>
-                  <div className="win-place">{winner.place}</div>
+                  <div className="win-place">{t.cabins[winner.id].place}</div>
                   <div className="win-price">
-                    {fmt(winner.price)} kr <em>{winner.priceNote}</em>
+                    {fmt(winner.price)} {t.currency}{" "}
+                    <em>{t.cabins[winner.id].priceNote}</em>
                   </div>
                   {drivers.length ? (
                     <div className="chips">
@@ -637,16 +875,18 @@ export default function Hyttevalg() {
                     </div>
                   ) : null}
                   <p className="win-asap">
-                    <b>Må fikses først</b>
-                    {winner.asap}
+                    <b>{t.fixFirst}</b>
+                    {t.cabins[winner.id].asap}
                   </p>
                 </div>
               </div>
             </div>
             {runnerUp ? (
               <p className="gap">
-                {(winner.score - runnerUp.score).toFixed(1)} poeng foran{" "}
-                {runnerUp.name}.
+                {t.aheadOf(
+                  (winner.score - runnerUp.score).toFixed(1),
+                  runnerUp.name
+                )}
               </p>
             ) : null}
           </section>
@@ -654,8 +894,8 @@ export default function Hyttevalg() {
 
         {revealed ? (
         <section className="sec">
-          <h2>Rangering</h2>
-          <p className="hint">Trykk på en rad for styrker og svakheter.</p>
+          <h2>{t.rankHead}</h2>
+          <p className="hint">{t.rankNote}</p>
           <div ref={listRef} style={{ borderTop: "2px solid var(--ink)" }}>
             {ranked.map((c, i) => {
               const isOpen = open === c.id;
@@ -690,7 +930,11 @@ export default function Hyttevalg() {
                         {c.out ? (
                           <i className="out-why">{c.why}</i>
                         ) : (
-                          c.place + " · " + fmt(c.price) + " kr"
+                          t.cabins[c.id].place +
+                          " · " +
+                          fmt(c.price) +
+                          " " +
+                          t.currency
                         )}
                       </small>
                     </span>
@@ -710,25 +954,27 @@ export default function Hyttevalg() {
                   {isOpen ? (
                     <div className="rbody">
                       <div>
-                        <div className="pmh">Styrker</div>
+                        <div className="pmh">{t.strengths}</div>
                         <ul className="pm plus">
-                          {c.plus.map((t, j) => (
-                            <li key={j}>{t}</li>
+                          {t.cabins[c.id].plus.map((x, j) => (
+                            <li key={j}>{x}</li>
                           ))}
                         </ul>
                       </div>
                       <div>
-                        <div className="pmh">Svakheter</div>
+                        <div className="pmh">{t.weaknesses}</div>
                         <ul className="pm minus">
-                          {c.minus.map((t, j) => (
-                            <li key={j}>{t}</li>
+                          {t.cabins[c.id].minus.map((x, j) => (
+                            <li key={j}>{x}</li>
                           ))}
                         </ul>
                       </div>
                       <div className="facts">
-                        <span>Byggeår {c.built}</span>
-                        <span>{c.area}</span>
-                        <span>{c.land}</span>
+                        <span>
+                          {t.builtYear} {c.built}
+                        </span>
+                        <span>{t.cabins[c.id].area}</span>
+                        <span>{t.cabins[c.id].land}</span>
                       </div>
                     </div>
                   ) : null}
@@ -741,10 +987,9 @@ export default function Hyttevalg() {
 
         {revealed ? (
         <section className="sec">
-          <h2>Alle tall</h2>
-          <p className="hint">
-            Skala 0 til 10. Grønt tall bak punktet er vekten svarene dine ga det.
-          </p>
+          <h2>{t.allNumbers}</h2>
+          <p className="hint">{t.scaleNote}</p>
+          <div className="mxwrap">
           <table className="mx">
             <thead>
               <tr>
@@ -757,10 +1002,10 @@ export default function Hyttevalg() {
               </tr>
             </thead>
             <tbody>
-              {METRICS.map(([k, label]) => (
+              {METRIC_KEYS.map((k) => (
                 <tr key={k}>
                   <td>
-                    {label}
+                    {t.metrics[k]}
                     {weights[k] > 1 ? <i className="w">×{weights[k].toFixed(1)}</i> : null}
                   </td>
                   {CABINS.map((c) => {
@@ -779,23 +1024,14 @@ export default function Hyttevalg() {
               ))}
             </tbody>
           </table>
+          </div>
         </section>
         ) : null}
 
         <div className="foot">
-          <p>
-            Poengene er mine vurderinger av opplysningene i salgsoppgavene, ikke
-            objektive mål. Tilstandstallene bygger på tilstandsrapportenes
-            tilstandsgrader, avløpstallene på hva kommunen og terrenget tillater.
-          </p>
-          <p>
-            Svanfossvegen 311 er et tvangssalg. Avhendingsloven gjelder ikke, og
-            prisen på finn er høyere enn i prospektet fra 3. august.
-          </p>
-          <p>
-            Kausebøl 40 mangler oppgitte omkostninger i prospektet, så totalprisen
-            er anslått. Jeg er ikke takstmann.
-          </p>
+          {t.notes.map((n, i) => (
+            <p key={i}>{n}</p>
+          ))}
         </div>
       </div>
     </div>
